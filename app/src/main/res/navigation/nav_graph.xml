@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/awaitingProductsFragment">
+
+    <fragment
+        android:id="@+id/awaitingProductsFragment"
+        android:name="com.example.foods.AwaitingProductsFragment"
+        android:label="AwaitingProductsFragment" />
+</navigation>
