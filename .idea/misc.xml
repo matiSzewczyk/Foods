@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/layout/awaiting_products_item.xml" value="0.4078125" />
-        <entry key="app/src/main/res/layout/fragment_awaiting_products.xml" value="0.1361111111111111" />
+        <entry key="app/src/main/res/layout/fragment_awaiting_products.xml" value="0.33" />
       </map>
     </option>
   </component>

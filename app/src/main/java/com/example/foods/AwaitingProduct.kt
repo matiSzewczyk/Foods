@@ -7,7 +7,7 @@ import io.realm.annotations.RealmField
 import java.util.*
 
 @RealmClass
-class AwaitingProduct : RealmObject() {
+open class AwaitingProduct : RealmObject() {
     @PrimaryKey @RealmField("_id")
     var id: String = UUID.randomUUID().toString()
 
@@ -18,5 +18,4 @@ class AwaitingProduct : RealmObject() {
     var urgent = "pilne"
 
     var timestamp: String = ""
-
 }
