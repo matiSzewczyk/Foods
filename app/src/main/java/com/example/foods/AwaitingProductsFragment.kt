@@ -20,6 +20,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
     }
 
     private fun initRealm() {
+        // TODO: This might be bad practice, let's try passing the application instance as an argument to the ViewModel. 
         awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
     }
 }
