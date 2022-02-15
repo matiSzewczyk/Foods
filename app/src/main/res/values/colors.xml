@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#ff0000</color>
     <color name="product_item_bgcolor">#d4fcee</color>
+    <color name="cancel_button_bgcolor">#ff4a6b></color>
+    <color name="confirm_button_bgcolor">#3dffae></color>
 </resources>
