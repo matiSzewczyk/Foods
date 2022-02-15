@@ -1,6 +1,7 @@
 package com.example.foods
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.RealmResults
@@ -24,25 +25,23 @@ class AwaitingProductsViewModel : ViewModel() {
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
 
-        foodsApp.loginAsync(credentials) {
-            if (it.isSuccess) {
-                println("yep")
-            }
-        }
-        createRealm(foodsApp)
+        foodsApp.login(credentials)
+//        println("\ntwo ${foodsApp.currentUser()}")
+//        createRealm(foodsApp)
     }
 
     fun test() {
         realm!!.executeTransactionAsync { bgRealm ->
             bgRealm.delete(AwaitingProduct::class.java)
-            val product = randomProduct()
-            bgRealm.copyToRealmOrUpdate(product)
+//            val product = randomProduct()
+//            bgRealm.copyToRealmOrUpdate(product)
         }
     }
 
-    private fun createRealm(foodsApp: App) {
+    fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
         partitionValue = "partition"
+        println("\nwtf ${foodsApp.currentUser()}")
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
@@ -59,21 +58,21 @@ class AwaitingProductsViewModel : ViewModel() {
         }
     }
 
-    private fun productList(): RealmResults<AwaitingProduct> {
+    fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)
             .findAll()
             .sort("timestamp")
     }
 
-    @SuppressLint("NewApi")
-    fun randomProduct() : AwaitingProduct {
-        val currentDateTime = LocalDateTime.now()
-        val product = AwaitingProduct()
-
-        product.name = "Orzech Laskowy"
-        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
-        product.grammage = "500g"
-
-        return product
-    }
+//    @SuppressLint("NewApi")
+//    fun randomProduct() : AwaitingProduct {
+//        val currentDateTime = LocalDateTime.now()
+//        val product = AwaitingProduct()
+//
+//        product.name = "Orzech Laskowy"
+//        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
+//        product.grammage = "500g"
+//
+//        return product
+//    }
 }

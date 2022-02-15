@@ -4,10 +4,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foods.databinding.DialogNewEntryFragmentBinding
 import com.example.foods.databinding.FragmentAwaitingProductsBinding
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
 
@@ -21,28 +27,36 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
 
         binding = FragmentAwaitingProductsBinding.bind(view)
 
-        initRealm()
-        setupRecyclerView()
-
-        listener = RealmChangeListener {
-            awaitingProductsAdapter.notifyDataSetChanged()
+        lifecycleScope.launch(IO) {
+            awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
+            withContext(Main) {
+                awaitingProductsViewModel.createRealm((requireActivity().application as FoodsApp).foodsApp)
+                setupRecyclerView()
+                listener = RealmChangeListener {
+                    awaitingProductsAdapter.notifyDataSetChanged()
+                }
+                awaitingProductsAdapter.products.addChangeListener(listener)
+            }
         }
-        awaitingProductsAdapter.products.addChangeListener(listener)
+
 
         binding.button.setOnClickListener {
-            awaitingProductsViewModel.test()
+//            awaitingProductsViewModel.test()
+            val dialog = NewEntryDialogFragment()
+            dialog.show(parentFragmentManager, "wtf")
         }
 
     }
 
     private fun initRealm() {
-        // TODO: This might be bad practice, let's try passing the application instance as an argument to the ViewModel. 
+        // TODO: This might be bad practice, let's try passing the application instance as an argument to the ViewModel.
+        println("\nhi ${(requireActivity().application as FoodsApp).foodsApp}")
         awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
     }
 
     private fun setupRecyclerView() = binding.awaitingProductsRecyclerView.apply {
         awaitingProductsAdapter = AwaitingProductsAdapter(
-            awaitingProductsViewModel.productList!!
+            awaitingProductsViewModel.productList()
         )
         adapter = awaitingProductsAdapter
         layoutManager = LinearLayoutManager(context)
