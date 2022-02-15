@@ -1,6 +1,7 @@
 package com.example.foods
 
 import android.annotation.SuppressLint
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.RealmResults
@@ -24,9 +25,20 @@ class AwaitingProductsViewModel : ViewModel() {
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
 
-        foodsApp.login(credentials)
+        foodsApp.loginAsync(credentials) {
+            if (it.isSuccess) {
+                println("yep")
+            }
+        }
         createRealm(foodsApp)
+    }
 
+    fun test() {
+        realm!!.executeTransactionAsync { bgRealm ->
+            bgRealm.delete(AwaitingProduct::class.java)
+            val product = randomProduct()
+            bgRealm.copyToRealmOrUpdate(product)
+        }
     }
 
     private fun createRealm(foodsApp: App) {
@@ -38,15 +50,17 @@ class AwaitingProductsViewModel : ViewModel() {
             .build()
 
         realm = Realm.getInstance(config)
+
+        productList = productList()
     }
 
-    private fun addNewProduct(product: AwaitingProduct) {
+    private fun addNewProduct(product: RealmResults<AwaitingProduct>) {
         realm!!.executeTransactionAsync { bgRealm ->
             bgRealm.copyToRealmOrUpdate(product)
         }
     }
 
-    fun productList(): RealmResults<AwaitingProduct> {
+    private fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)
             .findAll()
             .sort("timestamp")
@@ -59,6 +73,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
         product.name = "Orzech Laskowy"
         product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
+        product.grammage = "500g"
 
         return product
     }

@@ -11,10 +11,12 @@ class AwaitingProductsAdapter(
     var products: RealmResults<AwaitingProduct>
 ) : RecyclerView.Adapter<AwaitingProductsAdapter.AwaitingProductsHolder>() {
 
+
     inner class AwaitingProductsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName: TextView = itemView.findViewById(R.id.product_name)
         val productUrgency: TextView = itemView.findViewById(R.id.product_urgency)
         val productTimestamp: TextView = itemView.findViewById(R.id.timestamp)
+        val productGrammage: TextView = itemView.findViewById(R.id.product_grammage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwaitingProductsHolder {
@@ -28,11 +30,12 @@ class AwaitingProductsAdapter(
         holder.apply {
             productName.text = products[position]?.name
             productUrgency.text = products[position]?.urgent
+            productGrammage.text = products[position]?.grammage
             productTimestamp.text = products[position]?.timestamp
         }
     }
 
     override fun getItemCount(): Int {
-        return products.size
+        return products!!.size
     }
 }
