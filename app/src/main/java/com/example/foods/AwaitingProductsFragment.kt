@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.foods.databinding.DialogNewEntryFragmentBinding
 import com.example.foods.databinding.FragmentAwaitingProductsBinding
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
@@ -43,15 +42,9 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
         binding.button.setOnClickListener {
 //            awaitingProductsViewModel.test()
             val dialog = NewEntryDialogFragment()
-            dialog.show(parentFragmentManager, "wtf")
+            dialog.show(childFragmentManager, "dialogFragment.show()")
         }
 
-    }
-
-    private fun initRealm() {
-        // TODO: This might be bad practice, let's try passing the application instance as an argument to the ViewModel.
-        println("\nhi ${(requireActivity().application as FoodsApp).foodsApp}")
-        awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
     }
 
     private fun setupRecyclerView() = binding.awaitingProductsRecyclerView.apply {
