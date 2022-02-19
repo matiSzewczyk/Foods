@@ -76,13 +76,14 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewEntry(name: String) {
+    fun createNewEntry(name: String, grammage: String, urgency: String) {
         val currentDateTime = LocalDateTime.now()
         val product = AwaitingProduct()
 
         product.name = name
         product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
-        product.grammage = "500g"
+        product.grammage = grammage
+        product.urgent = urgency
         addToRealm(product)
     }
 

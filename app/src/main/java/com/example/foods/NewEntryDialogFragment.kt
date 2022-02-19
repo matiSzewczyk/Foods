@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
@@ -35,10 +37,40 @@ class NewEntryDialogFragment : DialogFragment(){
 
         binding.apply {
             buttonConfirm.setOnClickListener {
-                awaitingProductsViewModel.createNewEntry(binding.newEntryName.text.toString())
+                if (isGrammageSelected(radioButton1, radioButton500)) {
+                    awaitingProductsViewModel.createNewEntry(
+                        newEntryName.text.toString(),
+                        getGrammage(radioButton1),
+                        isUrgent(urgentRadioButton)
+                    )
+                dialog!!.dismiss()
+                }
+                else {
+                    Toast.makeText(context, "Należy wybrać gramaturę.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            buttonCancel.setOnClickListener {
                 dialog!!.dismiss()
             }
         }
+    }
+
+    private fun isUrgent(urgentRadioButton: RadioButton): String {
+        return if (urgentRadioButton.isChecked)
+            "pilne"
+        else
+            ""
+    }
+
+    private fun isGrammageSelected(radioButton1: RadioButton, radioButton500: RadioButton): Boolean{
+        return radioButton1.isChecked || radioButton500.isChecked
+    }
+
+    private fun getGrammage(radioButton1: RadioButton): String{
+        return if (radioButton1.isChecked)
+            "1kg"
+        else
+            "500g"
     }
 
 }
