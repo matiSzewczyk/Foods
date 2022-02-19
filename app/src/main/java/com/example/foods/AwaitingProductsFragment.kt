@@ -3,6 +3,7 @@ package com.example.foods
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,7 @@ import kotlinx.coroutines.withContext
 class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
 
     private lateinit var binding : FragmentAwaitingProductsBinding
-    private val awaitingProductsViewModel : AwaitingProductsViewModel by viewModels()
+    private val awaitingProductsViewModel : AwaitingProductsViewModel by activityViewModels()
     private lateinit var awaitingProductsAdapter: AwaitingProductsAdapter
     private lateinit var listener: RealmChangeListener<RealmResults<AwaitingProduct>>
 

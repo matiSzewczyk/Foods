@@ -26,15 +26,13 @@ class AwaitingProductsViewModel : ViewModel() {
         val credentials : Credentials = Credentials.anonymous()
 
         foodsApp.login(credentials)
-//        println("\ntwo ${foodsApp.currentUser()}")
-//        createRealm(foodsApp)
     }
 
     fun test() {
         realm!!.executeTransactionAsync { bgRealm ->
-            bgRealm.delete(AwaitingProduct::class.java)
-//            val product = randomProduct()
-//            bgRealm.copyToRealmOrUpdate(product)
+//            bgRealm.delete(AwaitingProduct::class.java)
+            val product = randomProduct()
+            bgRealm.copyToRealmOrUpdate(product)
         }
     }
 
@@ -64,15 +62,15 @@ class AwaitingProductsViewModel : ViewModel() {
             .sort("timestamp")
     }
 
-//    @SuppressLint("NewApi")
-//    fun randomProduct() : AwaitingProduct {
-//        val currentDateTime = LocalDateTime.now()
-//        val product = AwaitingProduct()
-//
-//        product.name = "Orzech Laskowy"
-//        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
-//        product.grammage = "500g"
-//
-//        return product
-//    }
+    @SuppressLint("NewApi")
+    fun randomProduct() : AwaitingProduct {
+        val currentDateTime = LocalDateTime.now()
+        val product = AwaitingProduct()
+
+        product.name = "Orzech Laskowy"
+        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
+        product.grammage = "500g"
+
+        return product
+    }
 }
