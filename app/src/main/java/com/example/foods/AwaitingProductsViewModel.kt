@@ -2,7 +2,6 @@ package com.example.foods
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
@@ -49,12 +48,6 @@ class AwaitingProductsViewModel : ViewModel() {
         realm = Realm.getInstance(config)
 
         productList = productList()
-    }
-
-    private fun addNewProduct(product: RealmResults<AwaitingProduct>) {
-        realm!!.executeTransactionAsync { bgRealm ->
-            bgRealm.copyToRealmOrUpdate(product)
-        }
     }
 
     fun productList(): RealmResults<AwaitingProduct> {
