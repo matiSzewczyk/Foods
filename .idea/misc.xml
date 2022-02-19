@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.325" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/layout/awaiting_products_item.xml" value="0.4078125" />
-        <entry key="app/src/main/res/layout/dialog_new_entry_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_new_entry_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_awaiting_products.xml" value="0.33" />
       </map>
     </option>

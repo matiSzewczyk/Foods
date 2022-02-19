@@ -1,28 +1,44 @@
 package com.example.foods
 
-import android.app.AlertDialog
-import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import com.example.foods.databinding.DialogNewEntryFragmentBinding
 
 class NewEntryDialogFragment : DialogFragment(){
 
     private val awaitingProductsViewModel: AwaitingProductsViewModel by activityViewModels()
+    private lateinit var binding: DialogNewEntryFragmentBinding
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
-        return activity?.let {
-            val alertDialog = AlertDialog.Builder(it)
-            alertDialog.setView(requireActivity().layoutInflater.inflate(R.layout.dialog_new_entry_fragment, null))
-            alertDialog.setPositiveButton("Zatwierdź") { _, _ ->
-                Toast.makeText(context, "works", Toast.LENGTH_SHORT).show()
-                awaitingProductsViewModel.test()
-            }
-
-            alertDialog.create()
-        }?:throw IllegalStateException("nope")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, com.google.android.material.R.style.Theme_MaterialComponents_Light_Dialog_MinWidth)
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = DialogNewEntryFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            buttonConfirm.setOnClickListener {
+                awaitingProductsViewModel.createNewEntry(binding.newEntryName.text.toString())
+                dialog!!.dismiss()
+            }
+        }
+    }
+
 }

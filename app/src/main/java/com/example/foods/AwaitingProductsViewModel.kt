@@ -1,7 +1,9 @@
 package com.example.foods
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.RealmResults
@@ -39,7 +41,6 @@ class AwaitingProductsViewModel : ViewModel() {
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
         partitionValue = "partition"
-        println("\nwtf ${foodsApp.currentUser()}")
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
@@ -72,5 +73,23 @@ class AwaitingProductsViewModel : ViewModel() {
         product.grammage = "500g"
 
         return product
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun createNewEntry(name: String) {
+        val currentDateTime = LocalDateTime.now()
+        val product = AwaitingProduct()
+
+        product.name = name
+        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
+        product.grammage = "500g"
+        addToRealm(product)
+    }
+
+    private fun addToRealm(entity: AwaitingProduct) {
+        realm!!.executeTransactionAsync { bgRealm ->
+//            bgRealm.delete(AwaitingProduct::class.java)
+            bgRealm.copyToRealmOrUpdate(entity)
+        }
     }
 }

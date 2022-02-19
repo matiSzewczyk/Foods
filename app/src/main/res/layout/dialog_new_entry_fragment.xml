@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dialog_title">
 
         <EditText
-            android:id="@+id/product_name"
+            android:id="@+id/new_entry_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -78,5 +78,23 @@
             android:layout_height="wrap_content"
             android:text="1kg" />
     </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_cancel"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="cancel"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grammage_group" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_confirm"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="confirm"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grammage_group" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
