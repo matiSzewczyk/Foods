@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.example.foods.databinding.DialogNewEntryFragmentBinding
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class NewEntryDialogFragment : DialogFragment(){
 
@@ -41,7 +42,7 @@ class NewEntryDialogFragment : DialogFragment(){
                     awaitingProductsViewModel.createNewEntry(
                         newEntryName.text.toString(),
                         getGrammage(radioButton1),
-                        isUrgent(urgentRadioButton)
+                        isUrgent(urgentSwitch)
                     )
                 dialog!!.dismiss()
                 }
@@ -55,8 +56,8 @@ class NewEntryDialogFragment : DialogFragment(){
         }
     }
 
-    private fun isUrgent(urgentRadioButton: RadioButton): String {
-        return if (urgentRadioButton.isChecked)
+    private fun isUrgent(urgentSwitch: SwitchMaterial): String {
+        return if (urgentSwitch.isChecked)
             "pilne"
         else
             ""

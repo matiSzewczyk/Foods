@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
 import io.realm.RealmResults
+import io.realm.Sort
 import io.realm.mongodb.App
 import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
@@ -53,7 +54,7 @@ class AwaitingProductsViewModel : ViewModel() {
     fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)
             .findAll()
-            .sort("timestamp")
+            .sort("timestamp", Sort.DESCENDING)
     }
 
     @SuppressLint("NewApi")
