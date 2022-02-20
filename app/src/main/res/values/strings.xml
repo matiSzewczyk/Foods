@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Foods</string>
+    <string name="zatwierdz">ZATWIERDŹ</string>
+    <string name="anuluj">ANULUJ</string>
 </resources>

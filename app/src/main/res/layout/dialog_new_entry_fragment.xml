@@ -12,6 +12,8 @@
         android:layout_marginTop="30dp"
         android:text="Nowy produkt do sypania"
         android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#116636"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +23,7 @@
         android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_margin="15dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,18 +32,19 @@
         <EditText
             android:id="@+id/new_entry_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:ems="10"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/edittext_rounded_background"
             android:layout_weight=".5"
             android:hint="Nazwa produktu"
-            android:gravity="start"
             tools:text="Nazwa produktu" />
 
         <RadioGroup
             android:id="@+id/urgency_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_weight=".5"
             android:gravity="center_horizontal">
 
@@ -83,8 +85,11 @@
         android:id="@+id/button_cancel"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="cancel"
-        android:layout_marginTop="15dp"
+        android:backgroundTint="#ff3d5e"
+        android:text="@string/anuluj"
+        android:layout_margin="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grammage_group" />
 
@@ -92,8 +97,11 @@
         android:id="@+id/button_confirm"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="confirm"
-        android:layout_marginTop="15dp"
+        android:backgroundTint="#42ff75"
+        android:text="@string/zatwierdz"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_margin="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grammage_group" />
 
