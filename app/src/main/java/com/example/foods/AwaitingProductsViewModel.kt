@@ -31,9 +31,9 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun test() {
         realm!!.executeTransactionAsync { bgRealm ->
-//            bgRealm.delete(AwaitingProduct::class.java)
-            val product = randomProduct()
-            bgRealm.copyToRealmOrUpdate(product)
+            bgRealm.delete(AwaitingProduct::class.java)
+//            val product = randomProduct()
+//            bgRealm.copyToRealmOrUpdate(product)
         }
     }
 

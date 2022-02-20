@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,11 +10,10 @@
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="Nowy produkt do sypania"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:textColor="#116636"
+        android:textColor="@color/green_900"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +38,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/edittext_rounded_background"
             android:layout_weight=".5"
+            android:inputType="textCapWords"
             android:hint="Nazwa produktu"
             tools:text="Nazwa produktu" />
 
@@ -85,7 +86,7 @@
         android:id="@+id/button_cancel"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#ff3d5e"
+        android:backgroundTint="#fc6d85"
         android:text="@string/anuluj"
         android:layout_margin="15dp"
         android:textStyle="bold"
@@ -97,7 +98,7 @@
         android:id="@+id/button_confirm"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#42ff75"
+        android:backgroundTint="#73ff99"
         android:text="@string/zatwierdz"
         android:textStyle="bold"
         android:textColor="@color/white"

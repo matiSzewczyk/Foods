@@ -7,6 +7,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/awaiting_products_recyclerView"
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,8 +25,15 @@
         android:text="+"
         android:textStyle="bold"
         android:background="@drawable/button_background"
-        android:backgroundTint="@color/product_item_bgcolor"
+        android:backgroundTint="@color/green_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
