@@ -30,11 +30,9 @@ class AwaitingProductsViewModel : ViewModel() {
         foodsApp.login(credentials)
     }
 
-    fun test() {
+    fun deleteAll() {
         realm!!.executeTransactionAsync { bgRealm ->
             bgRealm.delete(AwaitingProduct::class.java)
-//            val product = randomProduct()
-//            bgRealm.copyToRealmOrUpdate(product)
         }
     }
 
@@ -57,18 +55,6 @@ class AwaitingProductsViewModel : ViewModel() {
             .sort("timestamp", Sort.DESCENDING)
     }
 
-    @SuppressLint("NewApi")
-    fun randomProduct() : AwaitingProduct {
-        val currentDateTime = LocalDateTime.now()
-        val product = AwaitingProduct()
-
-        product.name = "Orzech Laskowy"
-        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
-        product.grammage = "500g"
-
-        return product
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun createNewEntry(name: String, grammage: String, urgency: String) {
         val currentDateTime = LocalDateTime.now()
@@ -83,7 +69,6 @@ class AwaitingProductsViewModel : ViewModel() {
 
     private fun addToRealm(entity: AwaitingProduct) {
         realm!!.executeTransactionAsync { bgRealm ->
-//            bgRealm.delete(AwaitingProduct::class.java)
             bgRealm.copyToRealmOrUpdate(entity)
         }
     }

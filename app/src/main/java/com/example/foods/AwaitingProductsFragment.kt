@@ -47,7 +47,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
                 dialog.show(childFragmentManager, "dialogFragment.show()")
             }
             button2.setOnClickListener {
-                awaitingProductsViewModel.test()
+                awaitingProductsViewModel.deleteAll()
             }
         }
 
