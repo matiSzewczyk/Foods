@@ -41,8 +41,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
 
 
         binding.apply {
-            button.setOnClickListener {
-//            awaitingProductsViewModel.test()
+            newEntryButton.setOnClickListener {
                 val dialog = NewEntryDialogFragment()
                 dialog.show(childFragmentManager, "dialogFragment.show()")
             }
