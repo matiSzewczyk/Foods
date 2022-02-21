@@ -2,6 +2,9 @@ package com.example.foods
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -15,7 +18,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
+class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), RecyclerViewInterface {
 
     private lateinit var binding : FragmentAwaitingProductsBinding
     private val awaitingProductsViewModel : AwaitingProductsViewModel by activityViewModels()
@@ -54,9 +57,21 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products) {
 
     private fun setupRecyclerView() = binding.awaitingProductsRecyclerView.apply {
         awaitingProductsAdapter = AwaitingProductsAdapter(
-            awaitingProductsViewModel.productList()
+            awaitingProductsViewModel.productList(),
+            this@AwaitingProductsFragment
         )
         adapter = awaitingProductsAdapter
         layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun customClickListener(position: Int, view: View?) {
+        val hiddenLayout = view?.findViewById<ConstraintLayout>(R.id.hidden_layout)
+        if (hiddenLayout != null) {
+            if (hiddenLayout.visibility == View.GONE) {
+                hiddenLayout.visibility = View.VISIBLE
+            } else {
+                hiddenLayout.visibility = View.GONE
+            }
+        }
     }
 }

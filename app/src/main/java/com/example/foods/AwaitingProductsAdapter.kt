@@ -3,14 +3,13 @@ package com.example.foods
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
 
 class AwaitingProductsAdapter(
-    var products: RealmResults<AwaitingProduct>
+    var products: RealmResults<AwaitingProduct>,
+    private val customInterface: RecyclerViewInterface
 ) : RecyclerView.Adapter<AwaitingProductsAdapter.AwaitingProductsHolder>() {
 
 
@@ -19,6 +18,14 @@ class AwaitingProductsAdapter(
         val productUrgency: TextView = itemView.findViewById(R.id.product_urgency)
         val productTimestamp: TextView = itemView.findViewById(R.id.timestamp)
         val productGrammage: TextView = itemView.findViewById(R.id.product_grammage)
+
+        init {
+            apply {
+                itemView.setOnClickListener {
+                    customInterface.customClickListener(adapterPosition, itemView)
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AwaitingProductsHolder {
