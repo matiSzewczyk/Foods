@@ -71,14 +71,16 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 hiddenLayout.visibility = View.GONE
             }
         }
-
+        Toast.makeText(context, awaitingProductsAdapter.products[position]!!.isUrgent.toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun deleteButtonClickListener(position: Int, view: View?) {
-        Toast.makeText(context, "delete button clicked", Toast.LENGTH_SHORT).show()
+        awaitingProductsViewModel.deleteFromRealm(awaitingProductsAdapter.products[position]!!.id)
     }
 
-    override fun toggleUrgencyClickListener(view: View?) {
-        Toast.makeText(context, "toggle button clicked", Toast.LENGTH_SHORT).show()
+    override fun toggleUrgencyClickListener(position: Int, view: View?) {
+        awaitingProductsViewModel.toggleUrgency(
+            awaitingProductsAdapter.products[position]!!.id
+        )
     }
 }

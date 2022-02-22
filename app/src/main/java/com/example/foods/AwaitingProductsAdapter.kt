@@ -31,7 +31,7 @@ class AwaitingProductsAdapter(
                     customInterface.deleteButtonClickListener(adapterPosition, itemView)
                 }
                 toggleButton.setOnClickListener {
-                    customInterface.toggleUrgencyClickListener(itemView)
+                    customInterface.toggleUrgencyClickListener(adapterPosition, itemView)
                 }
             }
         }

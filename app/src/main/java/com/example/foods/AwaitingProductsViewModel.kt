@@ -1,6 +1,5 @@
 package com.example.foods
 
-import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
@@ -22,7 +21,7 @@ class AwaitingProductsViewModel : ViewModel() {
     private var realm: Realm? = null
 
 
-    var productList: RealmResults<AwaitingProduct>? = null
+    private var productList: RealmResults<AwaitingProduct>? = null
 
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
@@ -70,6 +69,26 @@ class AwaitingProductsViewModel : ViewModel() {
     private fun addToRealm(entity: AwaitingProduct) {
         realm!!.executeTransactionAsync { bgRealm ->
             bgRealm.copyToRealmOrUpdate(entity)
+        }
+    }
+
+    fun deleteFromRealm(entry: String) {
+        realm!!.executeTransactionAsync {
+            it.where(AwaitingProduct::class.java)
+                .equalTo("id", entry)
+                .findAll()
+                .deleteAllFromRealm()
+        }
+    }
+
+    fun toggleUrgency(id: String) {
+        realm!!.executeTransactionAsync {
+            val update = it.where(AwaitingProduct::class.java)
+                .equalTo("id", id)
+                .findFirst()
+            update!!.isUrgent = !update.isUrgent
+            update.urgent = "pilne"
+            it.copyToRealmOrUpdate(update)
         }
     }
 }
