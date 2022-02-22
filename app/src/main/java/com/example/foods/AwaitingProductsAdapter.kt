@@ -3,6 +3,7 @@ package com.example.foods
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
@@ -14,15 +15,23 @@ class AwaitingProductsAdapter(
 
 
     inner class AwaitingProductsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val productName: TextView = itemView.findViewById(R.id.product_name)
-        val productUrgency: TextView = itemView.findViewById(R.id.product_urgency)
-        val productTimestamp: TextView = itemView.findViewById(R.id.timestamp)
-        val productGrammage: TextView = itemView.findViewById(R.id.product_grammage)
+        val productName: TextView           = itemView.findViewById(R.id.product_name)
+        val productUrgency: TextView        = itemView.findViewById(R.id.product_urgency)
+        val productTimestamp: TextView      = itemView.findViewById(R.id.timestamp)
+        val productGrammage: TextView       = itemView.findViewById(R.id.product_grammage)
+        private val deleteButton: Button    = itemView.findViewById(R.id.delete_button)
+        private val toggleButton: Button    = itemView.findViewById(R.id.toggle_urgency_button)
 
         init {
             apply {
                 itemView.setOnClickListener {
-                    customInterface.customClickListener(adapterPosition, itemView)
+                    customInterface.layoutClickListener(adapterPosition, itemView)
+                }
+                deleteButton.setOnClickListener {
+                    customInterface.deleteButtonClickListener(adapterPosition, itemView)
+                }
+                toggleButton.setOnClickListener {
+                    customInterface.toggleUrgencyClickListener(itemView)
                 }
             }
         }

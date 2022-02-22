@@ -3,5 +3,7 @@ package com.example.foods
 import android.view.View
 
 interface RecyclerViewInterface {
-    fun customClickListener(position: Int, view: View?)
+    fun layoutClickListener(position: Int, view: View?)
+    fun deleteButtonClickListener(position: Int, view: View?)
+    fun toggleUrgencyClickListener(view: View?)
 }

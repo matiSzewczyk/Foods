@@ -52,7 +52,7 @@ class AwaitingProductsViewModel : ViewModel() {
     fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)
             .findAll()
-            .sort("timestamp", Sort.DESCENDING)
+            .sort("timestamp", Sort.ASCENDING)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
