@@ -10,6 +10,7 @@
     android:paddingBottom="5dp"
     android:paddingTop="5dp"
     android:layout_margin="6dp"
+    android:animateLayoutChanges="true"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
