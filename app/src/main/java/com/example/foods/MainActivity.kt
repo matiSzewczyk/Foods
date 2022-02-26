@@ -17,14 +17,18 @@ class MainActivity : AppCompatActivity() {
 
         Realm.init(this)
 
-        binding.bottomNavigation.setOnItemReselectedListener {
+        binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.new_entries -> {
                     setCurrentFragment(AwaitingProductsFragment())
+                    true
                 }
                 R.id.completed_entries -> {
                     // TODO: set fragment to completed
+                    setCurrentFragment(CompletedProductsFragment())
+                    true
                 }
+                else -> false
             }
         }
     }
