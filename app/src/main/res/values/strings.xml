@@ -5,4 +5,7 @@
     <string name="bottom_menu_done">Rozsypane</string>
     <string name="bottom_menu_new">Do sypania</string>
     <string name="plus">+</string>
+    <string name="nie_pilne">(nie)pilne</string>
+    <string name="nasypane">Nasypane</string>
+    <string name="usun">Usuń</string>
 </resources>
