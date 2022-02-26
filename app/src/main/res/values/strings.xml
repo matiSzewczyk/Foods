@@ -2,4 +2,6 @@
     <string name="app_name">Foods</string>
     <string name="zatwierdz">ZATWIERDŹ</string>
     <string name="anuluj">ANULUJ</string>
+    <string name="bottom_menu_done">Rozsypane</string>
+    <string name="bottom_menu_new">Do sypania</string>
 </resources>
