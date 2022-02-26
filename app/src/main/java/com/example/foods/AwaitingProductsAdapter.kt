@@ -21,6 +21,7 @@ class AwaitingProductsAdapter(
         val productGrammage: TextView       = itemView.findViewById(R.id.product_grammage)
         private val deleteButton: Button    = itemView.findViewById(R.id.delete_button)
         private val toggleButton: Button    = itemView.findViewById(R.id.toggle_urgency_button)
+        private val completedButton: Button = itemView.findViewById(R.id.completed_button)
 
         init {
             apply {
@@ -32,6 +33,9 @@ class AwaitingProductsAdapter(
                 }
                 toggleButton.setOnClickListener {
                     customInterface.toggleUrgencyClickListener(adapterPosition, itemView)
+                }
+                completedButton.setOnClickListener {
+                    customInterface.completedButtonClickListener(adapterPosition, itemView)
                 }
             }
         }

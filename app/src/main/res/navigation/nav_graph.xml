@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/awaitingProductsFragment"
         android:name="com.example.foods.AwaitingProductsFragment"
-        android:label="AwaitingProductsFragment" />
+        android:label="AwaitingProductsFragment" >
+        <action
+            android:id="@+id/action_awaitingProductsFragment_to_completedProductsFragment"
+            app:destination="@id/completedProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/completedProductsFragment"
+        android:name="com.example.foods.CompletedProductsFragment"
+        android:label="CompletedProductsFragment" />
 </navigation>

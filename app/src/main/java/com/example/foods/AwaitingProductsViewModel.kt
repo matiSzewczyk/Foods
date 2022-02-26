@@ -86,14 +86,32 @@ class AwaitingProductsViewModel : ViewModel() {
             val update = it.where(AwaitingProduct::class.java)
                 .equalTo("id", id)
                 .findFirst()
-            if (update!!.isUrgent) {
-                update.isUrgent = false
-                update.urgent = ""
-            } else {
-                update.isUrgent = true
-                update.urgent = "pilne"
+            if (update != null) {
+                if (update.isUrgent) {
+                    update.isUrgent = false
+                    update.urgent = ""
+                } else {
+                    update.isUrgent = true
+                    update.urgent = "pilne"
+                }
+                it.copyToRealmOrUpdate(update)
             }
-            it.copyToRealmOrUpdate(update)
+        }
+    }
+
+    fun addToCompleted(id: String) {
+        realm!!.executeTransactionAsync {
+            val completed = it.where(AwaitingProduct::class.java)
+                .equalTo("id", id)
+                .findFirst()
+
+            val test = CompletedProduct()
+            if (completed != null) {
+                test.name = completed.name
+                test.timestamp = completed.timestamp
+                test.grammage = completed.grammage
+                it.copyToRealmOrUpdate(test)
+            }
         }
     }
 }

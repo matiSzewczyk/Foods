@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foods.databinding.FragmentAwaitingProductsBinding
 import io.realm.RealmChangeListener
@@ -88,5 +89,9 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
         awaitingProductsViewModel.toggleUrgency(
             awaitingProductsAdapter.products[position]!!.id
         )
+    }
+
+    override fun completedButtonClickListener(position: Int, view: View) {
+        awaitingProductsViewModel.addToCompleted(awaitingProductsAdapter.products[position]!!.id)
     }
 }
