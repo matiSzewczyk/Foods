@@ -7,7 +7,7 @@ import io.realm.annotations.RealmField
 import java.util.*
 
 @RealmClass
-class CompletedProduct : RealmObject() {
+open class CompletedProduct : RealmObject() {
     @PrimaryKey
     @RealmField("_id")
     var id: String = UUID.randomUUID().toString()

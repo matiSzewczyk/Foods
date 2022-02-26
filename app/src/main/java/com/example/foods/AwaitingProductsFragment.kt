@@ -92,6 +92,8 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
     }
 
     override fun completedButtonClickListener(position: Int, view: View) {
-        awaitingProductsViewModel.addToCompleted(awaitingProductsAdapter.products[position]!!.id)
+        val id = awaitingProductsAdapter.products[position]!!.id
+        awaitingProductsViewModel.addToCompleted(id)
+        awaitingProductsViewModel.deleteFromRealm(id)
     }
 }
