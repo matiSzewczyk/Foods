@@ -86,8 +86,13 @@ class AwaitingProductsViewModel : ViewModel() {
             val update = it.where(AwaitingProduct::class.java)
                 .equalTo("id", id)
                 .findFirst()
-            update!!.isUrgent = !update.isUrgent
-            update.urgent = "pilne"
+            if (update!!.isUrgent) {
+                update.isUrgent = false
+                update.urgent = ""
+            } else {
+                update.isUrgent = true
+                update.urgent = "pilne"
+            }
             it.copyToRealmOrUpdate(update)
         }
     }
