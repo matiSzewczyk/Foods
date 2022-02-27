@@ -29,12 +29,6 @@ class AwaitingProductsViewModel : ViewModel() {
         foodsApp.login(credentials)
     }
 
-    fun deleteAll() {
-        realm!!.executeTransactionAsync { bgRealm ->
-            bgRealm.delete(AwaitingProduct::class.java)
-        }
-    }
-
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
         partitionValue = "partition"
@@ -47,6 +41,13 @@ class AwaitingProductsViewModel : ViewModel() {
 
         productList = productList()
     }
+
+    fun deleteAll() {
+        realm!!.executeTransactionAsync { bgRealm ->
+            bgRealm.delete(AwaitingProduct::class.java)
+        }
+    }
+
 
     fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)

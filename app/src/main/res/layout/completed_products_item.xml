@@ -14,7 +14,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/product_name"
+        android:id="@+id/completed_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/green_900"
@@ -28,73 +28,39 @@
 
 
     <TextView
-        android:id="@+id/product_grammage"
+        android:id="@+id/completed_product_grammage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/teal_700"
         android:textSize="18sp"
         android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/hidden_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_name"
+        app:layout_constraintTop_toBottomOf="@+id/completed_product_name"
         app:layout_constraintVertical_bias="0.323"
         tools:text="500g/1kg" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/hidden_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/completed_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/completed_button_img"
+        android:backgroundTint="@color/green_200"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_grammage"
-        app:layout_constraintBottom_toTopOf="@id/timestamp">
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/delete_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:backgroundTint="@color/red"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/delete_button_img"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/delete_button_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:text="Usuń"
-            app:layout_constraintTop_toBottomOf="@id/delete_button"
-            app:layout_constraintStart_toStartOf="@id/delete_button"
-            app:layout_constraintEnd_toEndOf="@id/delete_button"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/toggle_urgency_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:backgroundTint="@color/green_900"
-            android:layout_marginEnd="35dp"
-            android:background="@drawable/urgency_button_img"
-            app:layout_constraintEnd_toStartOf="@+id/delete_button"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/urgency_toggle_button_text"
-            android:text="nie/pilne"
-            android:textColor="@color/green_900"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/toggle_urgency_button"
-            app:layout_constraintEnd_toEndOf="@id/toggle_urgency_button"
-            app:layout_constraintStart_toStartOf="@id/toggle_urgency_button"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/timestamp"
+        android:id="@+id/completed_button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/odebrane"
+        android:textColor="@color/green_200"
+        app:layout_constraintEnd_toEndOf="@id/completed_button"
+        app:layout_constraintStart_toStartOf="@id/completed_button"
+        app:layout_constraintTop_toBottomOf="@id/completed_button" />
+
+    <TextView
+        android:id="@+id/completed_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/teal_700"
