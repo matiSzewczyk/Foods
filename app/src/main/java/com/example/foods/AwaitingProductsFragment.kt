@@ -46,11 +46,6 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 val dialog = NewEntryDialogFragment()
                 dialog.show(childFragmentManager, "dialogFragment.show()")
             }
-//            button2.setOnClickListener {
-//                awaitingProductsViewModel.deleteAll()
-//                val hiddenLayout = view.findViewById<ConstraintLayout>(R.id.hidden_layout)
-//                hiddenLayout.visibility = View.GONE
-//            }
         }
 
     }

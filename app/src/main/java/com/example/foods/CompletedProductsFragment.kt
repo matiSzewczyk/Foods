@@ -36,11 +36,6 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
                 completedProductsAdapter.products.addChangeListener(listener)
             }
         }
-
-//        binding.button2.setOnClickListener {
-//            println("\n${completedProductsAdapter.products.size}")
-//            println("\n${completedProductsAdapter.products}")
-//        }
     }
 
     private fun setupRecyclerView() = binding.completedProductsRecyclerView.apply {
