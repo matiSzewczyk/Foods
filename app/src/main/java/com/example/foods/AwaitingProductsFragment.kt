@@ -1,12 +1,18 @@
 package com.example.foods
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foods.databinding.FragmentAwaitingProductsBinding
 import io.realm.RealmChangeListener
@@ -23,17 +29,37 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
     private lateinit var awaitingProductsAdapter: AwaitingProductsAdapter
     private lateinit var listener: RealmChangeListener<RealmResults<AwaitingProduct>>
 
+    private val CHANNEL_ID = "channelID"
+    private val CHANNEL_NAME = "channelName"
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentAwaitingProductsBinding.bind(view)
 
+        createNotificationChannel()
+
         lifecycleScope.launch(IO) {
             awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
             withContext(Main) {
                 awaitingProductsViewModel.createRealm((requireActivity().application as FoodsApp).foodsApp)
+                awaitingProductsViewModel.getListCount()
                 setupRecyclerView()
                 listener = RealmChangeListener {
+
+                    if (awaitingProductsViewModel.isNewEntry(awaitingProductsAdapter.products)) {
+                        val notification = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                            .setContentTitle("tytuł")
+                            .setContentText("tekst")
+                            .setSmallIcon(R.drawable.placeholder)
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .build()
+
+                        val notificationManager = NotificationManagerCompat.from(requireContext())
+
+                        notificationManager.notify(0, notification)
+                        awaitingProductsViewModel.itemCount = awaitingProductsAdapter.products.size
+                    }
                     awaitingProductsAdapter.notifyDataSetChanged()
                 }
                 awaitingProductsAdapter.products.addChangeListener(listener)
@@ -90,5 +116,20 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
         val id = awaitingProductsAdapter.products[position]!!.id
         awaitingProductsViewModel.addToCompleted(id)
         awaitingProductsViewModel.deleteFromRealm(id)
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                lightColor = Color.GREEN
+                enableLights(true)
+            }
+            val manager: NotificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
     }
 }

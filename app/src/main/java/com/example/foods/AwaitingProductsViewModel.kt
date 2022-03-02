@@ -20,8 +20,10 @@ class AwaitingProductsViewModel : ViewModel() {
     private var partitionValue : String? = null
     private var realm: Realm? = null
 
+    var itemCount: Int = 0
 
-    private var productList: RealmResults<AwaitingProduct>? = null
+
+    var productList: RealmResults<AwaitingProduct>? = null
 
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
@@ -80,6 +82,7 @@ class AwaitingProductsViewModel : ViewModel() {
                 .findAll()
                 .deleteAllFromRealm()
         }
+        itemCount = productList!!.size
     }
 
     fun toggleUrgency(id: String) {
@@ -106,13 +109,31 @@ class AwaitingProductsViewModel : ViewModel() {
                 .equalTo("id", id)
                 .findFirst()
 
-            val test = CompletedProduct()
             if (completed != null) {
+                val test = CompletedProduct()
                 test.name = completed.name
                 test.timestamp = completed.timestamp
                 test.grammage = completed.grammage
                 it.copyToRealmOrUpdate(test)
             }
         }
+    }
+
+    fun getListCount() {
+        realm!!.executeTransaction {
+            itemCount = it.where(AwaitingProduct::class.java)
+                .findAll()
+                .count()
+        }
+    }
+
+    fun isNewEntry(list: RealmResults<AwaitingProduct>): Boolean {
+        var amount = 0
+        realm!!.executeTransaction {
+            amount = it.where(AwaitingProduct::class.java)
+                .findAll()
+                .count()
+        }
+        return itemCount < amount
     }
 }

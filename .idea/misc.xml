@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.325" />
         <entry key="app/src/main/res/drawable/delete_button_img.xml" value="0.4175" />
         <entry key="app/src/main/res/drawable/edittext_rounded_background.xml" value="0.325" />
+        <entry key="app/src/main/res/drawable/placeholder.xml" value="0.183" />
         <entry key="app/src/main/res/drawable/urgency_button_img.xml" value="0.4175" />
         <entry key="app/src/main/res/drawable/urgency_button_toggle_img.xml" value="0.325" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
