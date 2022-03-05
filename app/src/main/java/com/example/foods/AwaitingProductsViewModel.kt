@@ -70,7 +70,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun deleteFromRealm(entry: String) {
         if (!realm!!.isInTransaction) {
-            realm!!.executeTransactionAsync {
+            realm!!.executeTransaction {
                 it.where(AwaitingProduct::class.java)
                     .equalTo("id", entry)
                     .findAll()
@@ -99,7 +99,7 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun addToCompleted(id: String) {
-        realm!!.executeTransactionAsync {
+        realm!!.executeTransaction {
             val completed = it.where(AwaitingProduct::class.java)
                 .equalTo("id", id)
                 .findFirst()

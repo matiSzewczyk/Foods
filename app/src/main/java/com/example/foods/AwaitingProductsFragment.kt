@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foods.databinding.FragmentAwaitingProductsBinding
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -119,8 +120,10 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 hiddenLayout.visibility = View.GONE
             }
         }
-        awaitingProductsViewModel.addToCompleted(id)
-        awaitingProductsViewModel.deleteFromRealm(id)
+        CoroutineScope(Main).launch {
+            awaitingProductsViewModel.addToCompleted(id)
+            awaitingProductsViewModel.deleteFromRealm(id)
+        }
     }
 
     private fun createNotificationChannel() {
