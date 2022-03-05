@@ -70,6 +70,7 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun deleteFromRealm(entry: String) {
+        itemCount--
         if (!realm!!.isInTransaction) {
             realm!!.executeTransaction {
                 it.where(AwaitingProduct::class.java)
@@ -78,7 +79,6 @@ class AwaitingProductsViewModel : ViewModel() {
                     .deleteAllFromRealm()
             }
         }
-        itemCount -= 1
     }
 
     fun toggleUrgency(id: String) {
@@ -155,15 +155,6 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun isSameUser(userId: String): Boolean {
-        var id = ""
-        if (!realm!!.isInTransaction) {
-            realm!!.executeTransaction {
-                val listUserId = it.where(AwaitingProduct::class.java)
-                    .sort("timestamp", Sort.DESCENDING)
-                    .findFirst()
-                id = listUserId!!.userId
-            }
-        }
-        return id == userId
+        return productList!!.sort("timestamp", Sort.DESCENDING)[0]!!.userId == userId
     }
 }
