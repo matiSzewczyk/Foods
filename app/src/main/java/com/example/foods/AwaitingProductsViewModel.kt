@@ -69,11 +69,13 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun deleteFromRealm(entry: String) {
-        realm!!.executeTransactionAsync {
-            it.where(AwaitingProduct::class.java)
-                .equalTo("id", entry)
-                .findAll()
-                .deleteAllFromRealm()
+        if (!realm!!.isInTransaction) {
+            realm!!.executeTransactionAsync {
+                it.where(AwaitingProduct::class.java)
+                    .equalTo("id", entry)
+                    .findAll()
+                    .deleteAllFromRealm()
+            }
         }
         itemCount -= 1
     }
