@@ -127,7 +127,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun notifyObjectName() : String {
         var name = ""
-        realm!!.executeTransactionAsync {
+        realm!!.executeTransaction {
             val nameInList = it.where(AwaitingProduct::class.java)
                 .sort("timestamp", Sort.DESCENDING)
                 .findFirst()
@@ -138,7 +138,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun notifyObjectGrammage() : String {
         var grammage = ""
-        realm!!.executeTransactionAsync {
+        realm!!.executeTransaction {
             val grammageInList = it.where(AwaitingProduct::class.java)
                 .sort("timestamp", Sort.DESCENDING)
                 .findFirst()
