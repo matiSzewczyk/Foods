@@ -51,7 +51,7 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewEntry(name: String, grammage: String, urgency: String) {
+    fun createNewEntry(name: String, grammage: String, urgency: String, currentUser: User?) {
         val currentDateTime = LocalDateTime.now()
         val product = AwaitingProduct()
 
@@ -59,6 +59,7 @@ class AwaitingProductsViewModel : ViewModel() {
         product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
         product.grammage = grammage
         product.urgent = urgency
+        product.userId = currentUser.toString()
         addToRealm(product)
     }
 
@@ -122,7 +123,7 @@ class AwaitingProductsViewModel : ViewModel() {
         }
     }
 
-    fun isNewEntry(list: RealmResults<AwaitingProduct>): Boolean {
+    fun isNewEntry(): Boolean {
         return itemCount < productList!!.size
     }
 
@@ -151,5 +152,18 @@ class AwaitingProductsViewModel : ViewModel() {
             }
         }
         return grammage
+    }
+
+    fun isSameUser(userId: String): Boolean {
+        var id = ""
+        if (!realm!!.isInTransaction) {
+            realm!!.executeTransaction {
+                val listUserId = it.where(AwaitingProduct::class.java)
+                    .sort("timestamp", Sort.DESCENDING)
+                    .findFirst()
+                id = listUserId!!.userId
+            }
+        }
+        return id == userId
     }
 }

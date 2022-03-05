@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="product_array">
+        <item>Nasiona Chia</item>
+        <item>Popcorn</item>
+        <item>Płatki Owsiane</item>
+        <item>Żurawina Cała</item>
+        <item>Migdały</item>
+        <item>Orzech Nerkowca</item>
+        <item>Kurkuma</item>
+        <item>Orzech Laskowy</item>
+        <item>Orzech Włoski</item>
+        <item>Słonecznik</item>
+        <item>Pestki Dyni</item>
+        <item>Chipsy Bananowe</item>
+        <item>Orzech Pecan</item>
+        <item>Daktyle</item>
+        <item>Cukier Kokosowy</item>
+        <item>Orzech Ziemny</item>
+        <item>Pistacje</item>
+        <item>Mąka Migdałowa</item>
+        <item>Mąka Kokosowa</item>
+    </string-array>
+</resources>

@@ -20,4 +20,6 @@ open class AwaitingProduct : RealmObject() {
     var grammage: String = ""
 
     var timestamp: String = ""
+
+    var userId: String = ""
 }

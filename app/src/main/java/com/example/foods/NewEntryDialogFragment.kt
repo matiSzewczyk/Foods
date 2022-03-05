@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -36,13 +37,22 @@ class NewEntryDialogFragment : DialogFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val productList = resources.getStringArray(R.array.product_array)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_expandable_list_item_1,
+            productList
+        )
+        binding.newEntryName.setAdapter(adapter)
+
         binding.apply {
             buttonConfirm.setOnClickListener {
                 if (isGrammageSelected(radioButton1, radioButton500)) {
                     awaitingProductsViewModel.createNewEntry(
                         newEntryName.text.toString(),
                         getGrammage(radioButton1),
-                        isUrgent(urgentSwitch)
+                        isUrgent(urgentSwitch),
+                        (requireActivity().application as FoodsApp).foodsApp.currentUser()
                     )
                 dialog!!.dismiss()
                 }

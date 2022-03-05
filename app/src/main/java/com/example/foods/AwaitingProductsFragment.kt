@@ -48,17 +48,22 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 setupRecyclerView()
                 listener = RealmChangeListener {
 
-                    if (awaitingProductsViewModel.isNewEntry(awaitingProductsAdapter.products)) {
-                        val notification = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-                            .setContentTitle(awaitingProductsViewModel.notifyObjectName())
-                            .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
-                            .setSmallIcon(R.drawable.placeholder)
-                            .setPriority(NotificationCompat.PRIORITY_MAX) .build()
+                    if (awaitingProductsViewModel.isNewEntry()) {
+                        if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
+                            val notification =
+                                NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                                    .setContentTitle(awaitingProductsViewModel.notifyObjectName())
+                                    .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
+                                    .setSmallIcon(R.drawable.placeholder)
+                                    .setPriority(NotificationCompat.PRIORITY_MAX).build()
 
-                        val notificationManager = NotificationManagerCompat.from(requireContext())
+                            val notificationManager =
+                                NotificationManagerCompat.from(requireContext())
 
-                        notificationManager.notify(0, notification)
-                        awaitingProductsViewModel.itemCount = awaitingProductsAdapter.products.size
+                            notificationManager.notify(0, notification)
+                            awaitingProductsViewModel.itemCount =
+                                awaitingProductsAdapter.products.size
+                        }
                     }
                     awaitingProductsAdapter.notifyDataSetChanged()
                 }
