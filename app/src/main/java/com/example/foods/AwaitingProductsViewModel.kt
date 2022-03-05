@@ -70,7 +70,6 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun deleteFromRealm(entry: String) {
-        itemCount--
         if (!realm!!.isInTransaction) {
             realm!!.executeTransaction {
                 it.where(AwaitingProduct::class.java)
@@ -79,6 +78,7 @@ class AwaitingProductsViewModel : ViewModel() {
                     .deleteAllFromRealm()
             }
         }
+        itemCount--
     }
 
     fun toggleUrgency(id: String) {
@@ -113,6 +113,7 @@ class AwaitingProductsViewModel : ViewModel() {
                 it.copyToRealmOrUpdate(test)
             }
         }
+        deleteFromRealm(id)
     }
 
     fun getListCount() {

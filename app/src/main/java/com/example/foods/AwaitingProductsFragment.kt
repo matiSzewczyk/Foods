@@ -125,10 +125,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 hiddenLayout.visibility = View.GONE
             }
         }
-        CoroutineScope(Main).launch {
-            awaitingProductsViewModel.addToCompleted(id)
-            awaitingProductsViewModel.deleteFromRealm(id)
-        }
+        awaitingProductsViewModel.addToCompleted(id)
     }
 
     private fun createNotificationChannel() {
