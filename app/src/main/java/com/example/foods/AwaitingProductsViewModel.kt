@@ -44,13 +44,6 @@ class AwaitingProductsViewModel : ViewModel() {
         productList = productList()
     }
 
-    fun deleteAll() {
-        realm!!.executeTransactionAsync { bgRealm ->
-            bgRealm.delete(AwaitingProduct::class.java)
-        }
-    }
-
-
     fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)
             .findAll()
@@ -128,29 +121,24 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun isNewEntry(list: RealmResults<AwaitingProduct>): Boolean {
-        var amount = 0
-        realm!!.executeTransaction {
-            amount = it.where(AwaitingProduct::class.java)
-                .findAll()
-                .count()
-        }
-        return itemCount < amount
+        return itemCount < productList!!.size
     }
+
 
     fun notifyObjectName() : String {
         var name = ""
-        realm!!.executeTransaction {
-            val wtf = it.where(AwaitingProduct::class.java)
+        realm!!.executeTransactionAsync {
+            val nameInList = it.where(AwaitingProduct::class.java)
                 .sort("timestamp", Sort.DESCENDING)
                 .findFirst()
-            name = wtf!!.name
+            name = nameInList!!.name
         }
         return name
     }
 
     fun notifyObjectGrammage() : String {
         var grammage = ""
-        realm!!.executeTransaction {
+        realm!!.executeTransactionAsync {
             val wtf = it.where(AwaitingProduct::class.java)
                 .sort("timestamp", Sort.DESCENDING)
                 .findFirst()
