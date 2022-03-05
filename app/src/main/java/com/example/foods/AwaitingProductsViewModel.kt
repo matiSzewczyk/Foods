@@ -139,10 +139,10 @@ class AwaitingProductsViewModel : ViewModel() {
     fun notifyObjectGrammage() : String {
         var grammage = ""
         realm!!.executeTransactionAsync {
-            val wtf = it.where(AwaitingProduct::class.java)
+            val grammageInList = it.where(AwaitingProduct::class.java)
                 .sort("timestamp", Sort.DESCENDING)
                 .findFirst()
-            grammage = wtf!!.grammage
+            grammage = grammageInList!!.grammage
         }
         return grammage
     }
