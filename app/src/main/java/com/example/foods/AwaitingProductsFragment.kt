@@ -49,11 +49,10 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
 
                     if (awaitingProductsViewModel.isNewEntry(awaitingProductsAdapter.products)) {
                         val notification = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-                            .setContentTitle("tytuł")
-                            .setContentText("tekst")
+                            .setContentTitle(awaitingProductsViewModel.notifyObjectName())
+                            .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
                             .setSmallIcon(R.drawable.placeholder)
-                            .setPriority(NotificationCompat.PRIORITY_HIGH)
-                            .build()
+                            .setPriority(NotificationCompat.PRIORITY_MAX) .build()
 
                         val notificationManager = NotificationManagerCompat.from(requireContext())
 

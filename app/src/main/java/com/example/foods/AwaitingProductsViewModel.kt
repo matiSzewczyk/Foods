@@ -82,7 +82,7 @@ class AwaitingProductsViewModel : ViewModel() {
                 .findAll()
                 .deleteAllFromRealm()
         }
-        itemCount = productList!!.size
+        itemCount -= 1
     }
 
     fun toggleUrgency(id: String) {
@@ -135,5 +135,27 @@ class AwaitingProductsViewModel : ViewModel() {
                 .count()
         }
         return itemCount < amount
+    }
+
+    fun notifyObjectName() : String {
+        var name = ""
+        realm!!.executeTransaction {
+            val wtf = it.where(AwaitingProduct::class.java)
+                .sort("timestamp", Sort.DESCENDING)
+                .findFirst()
+            name = wtf!!.name
+        }
+        return name
+    }
+
+    fun notifyObjectGrammage() : String {
+        var grammage = ""
+        realm!!.executeTransaction {
+            val wtf = it.where(AwaitingProduct::class.java)
+                .sort("timestamp", Sort.DESCENDING)
+                .findFirst()
+            grammage = wtf!!.grammage
+        }
+        return grammage
     }
 }
