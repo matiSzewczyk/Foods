@@ -113,6 +113,12 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
 
     override fun completedButtonClickListener(position: Int, view: View) {
         val id = awaitingProductsAdapter.products[position]!!.id
+        val hiddenLayout = view.findViewById<ConstraintLayout>(R.id.hidden_layout)
+        if (hiddenLayout != null) {
+            if (hiddenLayout.visibility == View.VISIBLE) {
+                hiddenLayout.visibility = View.GONE
+            }
+        }
         awaitingProductsViewModel.addToCompleted(id)
         awaitingProductsViewModel.deleteFromRealm(id)
     }

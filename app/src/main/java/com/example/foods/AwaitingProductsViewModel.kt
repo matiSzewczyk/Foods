@@ -127,22 +127,26 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun notifyObjectName() : String {
         var name = ""
-        realm!!.executeTransaction {
-            val nameInList = it.where(AwaitingProduct::class.java)
-                .sort("timestamp", Sort.DESCENDING)
-                .findFirst()
-            name = nameInList!!.name
+        if (!realm!!.isInTransaction) {
+            realm!!.executeTransaction {
+                val nameInList = it.where(AwaitingProduct::class.java)
+                    .sort("timestamp", Sort.DESCENDING)
+                    .findFirst()
+                name = nameInList!!.name
+            }
         }
         return name
     }
 
     fun notifyObjectGrammage() : String {
         var grammage = ""
-        realm!!.executeTransaction {
-            val grammageInList = it.where(AwaitingProduct::class.java)
-                .sort("timestamp", Sort.DESCENDING)
-                .findFirst()
-            grammage = grammageInList!!.grammage
+        if (!realm!!.isInTransaction) {
+            realm!!.executeTransaction {
+                val grammageInList = it.where(AwaitingProduct::class.java)
+                    .sort("timestamp", Sort.DESCENDING)
+                    .findFirst()
+                grammage = grammageInList!!.grammage
+            }
         }
         return grammage
     }
