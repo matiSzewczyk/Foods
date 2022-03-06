@@ -47,17 +47,21 @@ class NewEntryDialogFragment : DialogFragment(){
 
         binding.apply {
             buttonConfirm.setOnClickListener {
-                if (isGrammageSelected(radioButton1, radioButton500)) {
-                    awaitingProductsViewModel.createNewEntry(
-                        newEntryName.text.toString(),
-                        getGrammage(radioButton1),
-                        isUrgent(urgentSwitch),
-                        (requireActivity().application as FoodsApp).foodsApp.currentUser()
-                    )
-                dialog!!.dismiss()
-                }
-                else {
-                    Toast.makeText(context, "Należy wybrać gramaturę.", Toast.LENGTH_SHORT).show()
+                if (ConnectionChecker.isInternetAvailable(requireContext())) {
+                    if (isGrammageSelected(radioButton1, radioButton500)) {
+                        awaitingProductsViewModel.createNewEntry(
+                            newEntryName.text.toString(),
+                            getGrammage(radioButton1),
+                            isUrgent(urgentSwitch),
+                            (requireActivity().application as FoodsApp).foodsApp.currentUser()
+                        )
+                        dialog!!.dismiss()
+                    } else {
+                        Toast.makeText(context, "Należy wybrać gramaturę.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                } else {
+                    Toast.makeText(context, "Brak połączenia.", Toast.LENGTH_SHORT).show()
                 }
             }
             buttonCancel.setOnClickListener {

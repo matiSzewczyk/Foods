@@ -19,11 +19,12 @@ class AwaitingProductsViewModel : ViewModel() {
     private var user: User? = null
     private var partitionValue : String? = null
     private var realm: Realm? = null
+    var config: SyncConfiguration? = null
 
     var itemCount: Int = 0
 
 
-    var productList: RealmResults<AwaitingProduct>? = null
+    private var productList: RealmResults<AwaitingProduct>? = null
 
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
@@ -34,7 +35,7 @@ class AwaitingProductsViewModel : ViewModel() {
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
         partitionValue = "partition"
-        val config = SyncConfiguration.Builder(user!!, partitionValue)
+        config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
             .build()
