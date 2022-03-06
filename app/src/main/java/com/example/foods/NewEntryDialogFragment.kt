@@ -46,6 +46,7 @@ class NewEntryDialogFragment : DialogFragment(){
         binding.newEntryName.setAdapter(adapter)
 
         binding.apply {
+
             buttonConfirm.setOnClickListener {
                 if (ConnectionChecker.isInternetAvailable(requireContext())) {
                     if (isGrammageSelected(radioButton1, radioButton500)) {
@@ -64,6 +65,7 @@ class NewEntryDialogFragment : DialogFragment(){
                     Toast.makeText(context, "Brak połączenia.", Toast.LENGTH_SHORT).show()
                 }
             }
+
             buttonCancel.setOnClickListener {
                 dialog!!.dismiss()
             }
@@ -77,11 +79,11 @@ class NewEntryDialogFragment : DialogFragment(){
             ""
     }
 
-    private fun isGrammageSelected(radioButton1: RadioButton, radioButton500: RadioButton): Boolean{
+    private fun isGrammageSelected(radioButton1: RadioButton, radioButton500: RadioButton): Boolean {
         return radioButton1.isChecked || radioButton500.isChecked
     }
 
-    private fun getGrammage(radioButton1: RadioButton): String{
+    private fun getGrammage(radioButton1: RadioButton): String {
         return if (radioButton1.isChecked)
             "1kg"
         else

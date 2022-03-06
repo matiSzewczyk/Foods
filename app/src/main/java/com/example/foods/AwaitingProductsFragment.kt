@@ -31,7 +31,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
     private lateinit var listener: RealmChangeListener<RealmResults<AwaitingProduct>>
 
     private val CHANNEL_ID = "channelID"
-    private val CHANNEL_NAME = "channelName"
+    private val CHANNEL_NAME = "foods"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,23 +48,24 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 setupRecyclerView()
                 listener = RealmChangeListener {
 
-                    if (awaitingProductsViewModel.isNewEntry()) {
-                        if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
-                            val notification =
-                                NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-                                    .setContentTitle(awaitingProductsViewModel.notifyObjectName())
-                                    .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
-                                    .setSmallIcon(R.drawable.placeholder)
-                                    .setPriority(NotificationCompat.PRIORITY_MAX).build()
-
-                            val notificationManager =
-                                NotificationManagerCompat.from(requireContext())
-
-                            notificationManager.notify(0, notification)
-                            awaitingProductsViewModel.itemCount =
-                                awaitingProductsAdapter.products.size
-                        }
-                    }
+//                    if (awaitingProductsViewModel.isNewEntry()) {
+//                        if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
+//                            val notification =
+//                                NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+//                                    .setContentTitle(awaitingProductsViewModel.notifyObjectName())
+//                                    .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
+//                                    .setSmallIcon(R.drawable.foods_icon)
+//                                    .setColor(resources.getColor(R.color.green_900))
+//                                    .setPriority(NotificationCompat.PRIORITY_MAX).build()
+//
+//                            val notificationManager =
+//                                NotificationManagerCompat.from(requireContext())
+//
+//                            notificationManager.notify(0, notification)
+//                            awaitingProductsViewModel.itemCount =
+//                                awaitingProductsAdapter.products.size
+//                        }
+//                    }
                     awaitingProductsAdapter.notifyDataSetChanged()
                 }
                 awaitingProductsAdapter.products.addChangeListener(listener)

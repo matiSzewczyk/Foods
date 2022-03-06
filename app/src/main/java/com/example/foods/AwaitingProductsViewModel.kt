@@ -150,7 +150,9 @@ class AwaitingProductsViewModel : ViewModel() {
                 val grammageInList = it.where(AwaitingProduct::class.java)
                     .sort("timestamp", Sort.DESCENDING)
                     .findFirst()
-                grammage = grammageInList!!.grammage
+                if (grammageInList != null) {
+                    grammage = grammageInList.grammage
+                }
             }
         }
         return grammage
