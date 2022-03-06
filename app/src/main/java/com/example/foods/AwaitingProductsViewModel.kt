@@ -24,7 +24,7 @@ class AwaitingProductsViewModel : ViewModel() {
     var itemCount: Int = 0
 
 
-    private var productList: RealmResults<AwaitingProduct>? = null
+    var productList: RealmResults<AwaitingProduct>? = null
 
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
@@ -126,6 +126,8 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun isNewEntry(): Boolean {
+        println("\n itemcoutn = $itemCount")
+        println("\n productlist = ${productList!!.size}")
         return itemCount < productList!!.size
     }
 

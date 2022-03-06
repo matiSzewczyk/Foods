@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foods.databinding.FragmentAwaitingProductsBinding
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -48,24 +47,28 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 setupRecyclerView()
                 listener = RealmChangeListener {
 
-//                    if (awaitingProductsViewModel.isNewEntry()) {
-//                        if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
-//                            val notification =
-//                                NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-//                                    .setContentTitle(awaitingProductsViewModel.notifyObjectName())
-//                                    .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
-//                                    .setSmallIcon(R.drawable.foods_icon)
-//                                    .setColor(resources.getColor(R.color.green_900))
-//                                    .setPriority(NotificationCompat.PRIORITY_MAX).build()
-//
-//                            val notificationManager =
-//                                NotificationManagerCompat.from(requireContext())
-//
-//                            notificationManager.notify(0, notification)
-//                            awaitingProductsViewModel.itemCount =
-//                                awaitingProductsAdapter.products.size
-//                        }
-//                    }
+
+
+                    if (awaitingProductsViewModel.isNewEntry()) {
+                        awaitingProductsViewModel.itemCount =
+                            awaitingProductsAdapter.products.size
+                        if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
+                            val notification =
+                                NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                                    .setContentTitle(awaitingProductsViewModel.notifyObjectName())
+                                    .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
+                                    .setSmallIcon(R.drawable.foods_icon)
+                                    .setColor(resources.getColor(R.color.green_900))
+                                    .setPriority(NotificationCompat.PRIORITY_MAX).build()
+
+                            val notificationManager =
+                                NotificationManagerCompat.from(requireContext())
+
+                            notificationManager.notify(0, notification)
+                        }
+                    } else {
+                        awaitingProductsViewModel.itemCount = awaitingProductsViewModel.productList!!.size
+                    }
                     awaitingProductsAdapter.notifyDataSetChanged()
                 }
                 awaitingProductsAdapter.products.addChangeListener(listener)
