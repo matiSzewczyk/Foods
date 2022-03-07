@@ -126,8 +126,6 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun isNewEntry(): Boolean {
-        println("\n itemcoutn = $itemCount")
-        println("\n productlist = ${productList!!.size}")
         return itemCount < productList!!.size
     }
 

@@ -30,8 +30,8 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
     private lateinit var awaitingProductsAdapter: AwaitingProductsAdapter
     private lateinit var listener: RealmChangeListener<RealmResults<AwaitingProduct>>
 
-    private val CHANNEL_ID = "channelID"
-    private val CHANNEL_NAME = "foods"
+    private val CHANNEL_ID = "foodsId"
+    private val CHANNEL_NAME = "Do sypania"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,8 +47,6 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 awaitingProductsViewModel.getListCount()
                 setupRecyclerView()
                 listener = RealmChangeListener {
-
-
 
                     if (awaitingProductsViewModel.isNewEntry()) {
                         awaitingProductsViewModel.itemCount =
