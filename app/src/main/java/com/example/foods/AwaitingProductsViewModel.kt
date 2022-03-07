@@ -130,32 +130,12 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
 
-    fun notifyObjectName() : String {
-        var name = ""
-        if (!realm!!.isInTransaction) {
-            realm!!.executeTransaction {
-                val nameInList = it.where(AwaitingProduct::class.java)
-                    .sort("timestamp", Sort.DESCENDING)
-                    .findFirst()
-                name = nameInList!!.name
-            }
-        }
-        return name
+    fun notifyObjectName(): String {
+        return productList!!.sort("timestamp", Sort.DESCENDING)[0]!!.name
     }
 
     fun notifyObjectGrammage() : String {
-        var grammage = ""
-        if (!realm!!.isInTransaction) {
-            realm!!.executeTransaction {
-                val grammageInList = it.where(AwaitingProduct::class.java)
-                    .sort("timestamp", Sort.DESCENDING)
-                    .findFirst()
-                if (grammageInList != null) {
-                    grammage = grammageInList.grammage
-                }
-            }
-        }
-        return grammage
+        return productList!!.sort("timestamp", Sort.DESCENDING)[0]!!.grammage
     }
 
     fun isSameUser(userId: String): Boolean {
