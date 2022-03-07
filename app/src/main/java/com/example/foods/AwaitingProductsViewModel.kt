@@ -101,10 +101,10 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun addToCompleted(id: String) {
-        realm!!.executeTransaction {
-            val completed = it.where(AwaitingProduct::class.java)
-                .equalTo("id", id)
-                .findFirst()
+        realm!!.executeTransaction { it ->
+            val completed = productList!!.find {
+                id == it.id
+            }
 
             if (completed != null) {
                 val test = CompletedProduct()
@@ -118,11 +118,7 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun getListCount() {
-        realm!!.executeTransaction {
-            itemCount = it.where(AwaitingProduct::class.java)
-                .findAll()
-                .count()
-        }
+        itemCount = productList!!.size
     }
 
     fun isNewEntry(): Boolean {
