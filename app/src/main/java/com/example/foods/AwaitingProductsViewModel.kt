@@ -121,7 +121,10 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun isNewEntry(): Boolean {
-        return itemCount < productList!!.size
+        return if (productList!!.isNotEmpty())
+            itemCount < productList!!.size
+        else
+            false
     }
 
 
