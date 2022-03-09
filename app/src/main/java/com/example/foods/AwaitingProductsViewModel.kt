@@ -33,7 +33,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
-        partitionValue = "partition"
+        partitionValue = "partition1"
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
@@ -47,7 +47,7 @@ class AwaitingProductsViewModel : ViewModel() {
     fun productList(): RealmResults<AwaitingProduct> {
         return realm!!.where(AwaitingProduct::class.java)
             .findAll()
-            .sort("timestamp", Sort.ASCENDING)
+            .sort("time", Sort.ASCENDING)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -56,7 +56,8 @@ class AwaitingProductsViewModel : ViewModel() {
         val product = AwaitingProduct()
 
         product.name = name
-        product.timestamp = currentDateTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)).toString()
+        product.time = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"))
+        product.timestamp = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")).toString()
         product.grammage = grammage
         product.urgent = urgency
         product.userId = currentUser.toString()
@@ -129,14 +130,14 @@ class AwaitingProductsViewModel : ViewModel() {
 
 
     fun notifyObjectName(): String {
-        return productList!!.sort("timestamp", Sort.DESCENDING)[0]!!.name
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.name
     }
 
     fun notifyObjectGrammage() : String {
-        return productList!!.sort("timestamp", Sort.DESCENDING)[0]!!.grammage
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.grammage
     }
 
     fun isSameUser(userId: String): Boolean {
-        return productList!!.sort("timestamp", Sort.DESCENDING)[0]!!.userId == userId
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == userId
     }
 }

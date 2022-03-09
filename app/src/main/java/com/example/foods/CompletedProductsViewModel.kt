@@ -41,7 +41,7 @@ class CompletedProductsViewModel : ViewModel() {
     fun productList(): RealmResults<CompletedProduct> {
         return realm!!.where(CompletedProduct::class.java)
             .findAll()
-            .sort("timestamp", Sort.ASCENDING)
+            .sort("time", Sort.ASCENDING)
     }
 
     fun deleteFromRealm(entry: String) {
