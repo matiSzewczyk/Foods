@@ -16,5 +16,7 @@ open class CompletedProduct : RealmObject() {
 
     var grammage: String = ""
 
+    var time: String = ""
+
     var timestamp: String = ""
 }

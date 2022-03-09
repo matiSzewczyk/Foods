@@ -33,7 +33,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
-        partitionValue = "partition1"
+        partitionValue = "partition"
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
@@ -109,6 +109,7 @@ class AwaitingProductsViewModel : ViewModel() {
             if (completed != null) {
                 val test = CompletedProduct()
                 test.name = completed.name
+                test.time = completed.time
                 test.timestamp = completed.timestamp
                 test.grammage = completed.grammage
                 it.copyToRealmOrUpdate(test)
