@@ -12,7 +12,6 @@ import io.realm.mongodb.User
 import io.realm.mongodb.sync.SyncConfiguration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class AwaitingProductsViewModel : ViewModel() {
 
@@ -100,6 +99,7 @@ class AwaitingProductsViewModel : ViewModel() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addToCompleted(id: String) {
         realm!!.executeTransaction { it ->
             val completed = productList!!.find {
@@ -108,9 +108,10 @@ class AwaitingProductsViewModel : ViewModel() {
 
             if (completed != null) {
                 val test = CompletedProduct()
+                val currentDateTime = LocalDateTime.now()
                 test.name = completed.name
                 test.time = completed.time
-                test.timestamp = completed.timestamp
+                test.timestamp = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")).toString()
                 test.grammage = completed.grammage
                 it.copyToRealmOrUpdate(test)
             }
