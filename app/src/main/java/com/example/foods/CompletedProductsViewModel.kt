@@ -26,7 +26,7 @@ class CompletedProductsViewModel : ViewModel() {
 
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
-        partitionValue = "partition"
+        partitionValue = "partition1"
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)

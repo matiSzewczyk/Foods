@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.RadioButton
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
@@ -49,10 +49,10 @@ class NewEntryDialogFragment : DialogFragment(){
 
             buttonConfirm.setOnClickListener {
                 if (ConnectionChecker.isInternetAvailable(requireContext())) {
-                    if (isGrammageSelected(radioButton1, radioButton500)) {
+                    if (isGrammageSelected(checkBox1, checkBox500)) {
                         awaitingProductsViewModel.createNewEntry(
                             newEntryName.text.toString(),
-                            getGrammage(radioButton1),
+                            getGrammage(checkBox1, checkBox500),
                             isUrgent(urgentSwitch),
                             (requireActivity().application as FoodsApp).foodsApp.currentUser()
                         )
@@ -79,15 +79,18 @@ class NewEntryDialogFragment : DialogFragment(){
             ""
     }
 
-    private fun isGrammageSelected(radioButton1: RadioButton, radioButton500: RadioButton): Boolean {
-        return radioButton1.isChecked || radioButton500.isChecked
+
+    private fun isGrammageSelected(checkBox1: CheckBox, checkBox500: CheckBox): Boolean {
+        return checkBox1.isChecked || checkBox500.isChecked
     }
 
-    private fun getGrammage(radioButton1: RadioButton): String {
-        return if (radioButton1.isChecked)
-            "1kg"
-        else
-            "500g"
+    private fun getGrammage(checkBox1: CheckBox, checkBox500: CheckBox): String {
+        var text = ""
+        if (checkBox1.isChecked)
+            text += "1kg"
+        if (checkBox500.isChecked)
+            text += "\t\t500g"
+        return text
     }
 
 }
