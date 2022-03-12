@@ -9,4 +9,9 @@
     <string name="nasypane">Nasypane</string>
     <string name="usun">Usuń</string>
     <string name="odebrane">Odebrane</string>
+    <string name="_200g">200g</string>
+    <string name="_250g">250g</string>
+    <string name="_900g">900g</string>
+    <string name="_500g">500g</string>
+    <string name="_1kg">1kg</string>
 </resources>

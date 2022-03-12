@@ -52,7 +52,7 @@ class NewEntryDialogFragment : DialogFragment(){
                     if (isGrammageSelected(checkBox1, checkBox500)) {
                         awaitingProductsViewModel.createNewEntry(
                             newEntryName.text.toString(),
-                            getGrammage(checkBox1, checkBox500),
+                            getGrammage(),
                             isUrgent(urgentSwitch),
                             (requireActivity().application as FoodsApp).foodsApp.currentUser()
                         )
@@ -84,12 +84,14 @@ class NewEntryDialogFragment : DialogFragment(){
         return checkBox1.isChecked || checkBox500.isChecked
     }
 
-    private fun getGrammage(checkBox1: CheckBox, checkBox500: CheckBox): String {
+    private fun getGrammage(): String {
         var text = ""
-        if (checkBox1.isChecked)
-            text += "1kg"
-        if (checkBox500.isChecked)
-            text += "\t\t500g"
+        binding.apply {
+            if (checkBox1.isChecked)
+                text += "1kg"
+            if (checkBox500.isChecked)
+                text += "\t\t500g"
+        }
         return text
     }
 
