@@ -91,6 +91,8 @@ class NewEntryDialogFragment : DialogFragment(){
                 text += "1kg"
             if (checkBox500.isChecked)
                 text += "\t\t500g"
+            if (checkBox900.isChecked)
+                text += "\t\t900g"
         }
         return text
     }
