@@ -1,10 +1,6 @@
 package com.example.foods
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -30,15 +26,13 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
     private lateinit var awaitingProductsAdapter: AwaitingProductsAdapter
     private lateinit var listener: RealmChangeListener<RealmResults<AwaitingProduct>>
 
-    private val CHANNEL_ID = "foodsId"
-    private val CHANNEL_NAME = "Do sypania"
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentAwaitingProductsBinding.bind(view)
 
-        createNotificationChannel()
+        NotificationHandler.channel_name= "Do sypania"
+        NotificationHandler.createNotificationChannel(requireContext())
 
         lifecycleScope.launch(IO) {
             awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
@@ -53,7 +47,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                             awaitingProductsAdapter.products.size
                         if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
                             val notification =
-                                NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+                                NotificationCompat.Builder(requireContext(), NotificationHandler.channel_id)
                                     .setContentTitle(awaitingProductsViewModel.notifyObjectName())
                                     .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
                                     .setSmallIcon(R.drawable.foods_icon)
@@ -129,21 +123,8 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 hiddenLayout.visibility = View.GONE
             }
         }
-        awaitingProductsViewModel.addToCompleted(id)
-    }
-
-    private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                lightColor = Color.GREEN
-                enableLights(true)
-            }
-            val manager: NotificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
+            awaitingProductsViewModel.addToCompleted(id)
         }
     }
 }
