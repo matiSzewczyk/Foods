@@ -19,4 +19,6 @@ open class CompletedProduct : RealmObject() {
     var time: String = ""
 
     var timestamp: String = ""
+
+    var userId: String = ""
 }

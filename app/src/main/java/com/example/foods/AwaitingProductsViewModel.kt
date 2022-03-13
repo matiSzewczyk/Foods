@@ -130,7 +130,6 @@ class AwaitingProductsViewModel : ViewModel() {
             false
     }
 
-
     fun notifyObjectName(): String {
         return productList!!.sort("time", Sort.DESCENDING)[0]!!.name
     }

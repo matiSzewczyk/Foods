@@ -143,4 +143,9 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
             awaitingProductsViewModel.addToCompleted(id)
         }
     }
+
+    override fun onDestroy() {
+        awaitingProductsAdapter.products.removeAllChangeListeners()
+        super.onDestroy()
+    }
 }

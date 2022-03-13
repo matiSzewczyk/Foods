@@ -15,8 +15,9 @@ class CompletedProductsViewModel : ViewModel() {
     private var partitionValue : String? = null
     private var realm: Realm? = null
 
+    var itemCount: Int = 0
 
-    private var productList: RealmResults<CompletedProduct>? = null
+    var productList: RealmResults<CompletedProduct>? = null
 
     fun loginAnon(foodsApp: App) {
         val credentials : Credentials = Credentials.anonymous()
@@ -51,5 +52,24 @@ class CompletedProductsViewModel : ViewModel() {
                 .findAll()
                 .deleteAllFromRealm()
         }
+    }
+
+    fun isNewEntry(): Boolean {
+        return if (productList!!.isNotEmpty())
+            itemCount < productList!!.size
+        else
+            false
+    }
+
+    fun notifyObjectName(): String {
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.name
+    }
+
+    fun notifyObjectGrammage() : String {
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.grammage
+    }
+
+    fun isSameUser(userId: String): Boolean {
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == userId
     }
 }

@@ -1,7 +1,12 @@
 package com.example.foods
 
+import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +36,42 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
                 completedProductsViewModel.createRealm((requireActivity().application as FoodsApp).foodsApp)
                 setupRecyclerView()
                 listener = RealmChangeListener {
+                    if (requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null) == "pakujacy") {
+                        if (completedProductsViewModel.isNewEntry()) {
+                            completedProductsViewModel.itemCount =
+                                completedProductsAdapter.products.size
+                            if (!completedProductsViewModel.isSameUser(
+                                    (requireActivity().application as FoodsApp).foodsApp.currentUser()
+                                        .toString()
+                                )
+                            ) {
+                                val notification =
+                                    NotificationCompat.Builder(
+                                        requireContext(),
+                                        NotificationHandler.channel_id
+                                    )
+                                        .setContentTitle(completedProductsViewModel.notifyObjectName())
+                                        .setContentText(completedProductsViewModel.notifyObjectGrammage())
+                                        .setSmallIcon(R.drawable.foods_icon)
+                                        .setLargeIcon(
+                                            BitmapFactory.decodeResource(
+                                                requireContext().resources,
+                                                R.mipmap.logo_round
+                                            )
+                                        )
+                                        .setColor(resources.getColor(R.color.green_900))
+                                        .setPriority(NotificationCompat.PRIORITY_MAX).build()
+
+                                val notificationManager =
+                                    NotificationManagerCompat.from(requireContext())
+
+                                notificationManager.notify(0, notification)
+                            }
+                        } else {
+                            completedProductsViewModel.itemCount =
+                                completedProductsViewModel.productList!!.size
+                        }
+                    }
                     completedProductsAdapter.notifyDataSetChanged()
                 }
                 completedProductsAdapter.products.addChangeListener(listener)
@@ -64,4 +105,8 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
         completedProductsViewModel.deleteFromRealm(id)
     }
 
+    override fun onDestroy() {
+        completedProductsAdapter.products.removeAllChangeListeners()
+        super.onDestroy()
+    }
 }
