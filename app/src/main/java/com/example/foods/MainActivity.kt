@@ -1,5 +1,6 @@
 package com.example.foods
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -16,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Realm.init(this)
+
+        if (getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null) == null) {
+            setCurrentFragment(ProfileSelectFragment())
+        }
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {

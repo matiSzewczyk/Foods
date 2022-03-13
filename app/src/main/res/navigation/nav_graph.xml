@@ -16,4 +16,15 @@
         android:id="@+id/completedProductsFragment"
         android:name="com.example.foods.CompletedProductsFragment"
         android:label="CompletedProductsFragment" />
+    <fragment
+        android:id="@+id/profileSelectFragment"
+        android:name="com.example.foods.ProfileSelectFragment"
+        android:label="ProfileSelectFragment" >
+        <action
+            android:id="@+id/action_profileSelectFragment_to_awaitingProductsFragment"
+            app:destination="@id/awaitingProductsFragment" />
+        <action
+            android:id="@+id/action_profileSelectFragment_to_completedProductsFragment"
+            app:destination="@id/completedProductsFragment" />
+    </fragment>
 </navigation>
