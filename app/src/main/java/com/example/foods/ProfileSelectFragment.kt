@@ -25,21 +25,13 @@ class ProfileSelectFragment : Fragment(R.layout.fragment_profile_select) {
                     putString("profileType", "sypiacy")
                     apply()
                 }
-                moveToAwaitingFragment()
             }
             button2.setOnClickListener {
                 editor.apply {
                     putString("profileType", "pakujacy")
                     apply()
                 }
-                moveToAwaitingFragment()
             }
         }
-    }
-
-    private fun moveToAwaitingFragment() {
-//        val action =
-//            ProfileSelectFragmentDirections.actionProfileSelectFragmentToAwaitingProductsFragment()
-//        findNavController().navigate(action)
     }
 }
