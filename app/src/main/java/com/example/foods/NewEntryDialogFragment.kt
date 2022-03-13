@@ -50,13 +50,18 @@ class NewEntryDialogFragment : DialogFragment(){
             buttonConfirm.setOnClickListener {
                 if (ConnectionChecker.isInternetAvailable(requireContext())) {
                     if (isGrammageSelected(checkBox1, checkBox500, checkBox900)) {
-                        awaitingProductsViewModel.createNewEntry(
-                            newEntryName.text.toString(),
-                            getGrammage(),
-                            isUrgent(urgentSwitch),
-                            (requireActivity().application as FoodsApp).foodsApp.currentUser()
-                        )
-                        dialog!!.dismiss()
+                        if(newEntryName.text.isNotEmpty()) {
+                            awaitingProductsViewModel.createNewEntry(
+                                newEntryName.text.toString(),
+                                getGrammage(),
+                                isUrgent(urgentSwitch),
+                                (requireActivity().application as FoodsApp).foodsApp.currentUser()
+                            )
+                            dialog!!.dismiss()
+                        } else {
+                            Toast.makeText(context, "Wprowadź nazwę produktu.", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     } else {
                         Toast.makeText(context, "Należy wybrać gramaturę.", Toast.LENGTH_SHORT)
                             .show()
@@ -78,7 +83,6 @@ class NewEntryDialogFragment : DialogFragment(){
         else
             ""
     }
-
 
     private fun isGrammageSelected(checkBox1: CheckBox, checkBox500: CheckBox, checkBox900: CheckBox): Boolean {
         return checkBox1.isChecked || checkBox500.isChecked || checkBox900.isChecked
