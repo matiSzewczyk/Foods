@@ -23,8 +23,5 @@
         <action
             android:id="@+id/action_profileSelectFragment_to_awaitingProductsFragment"
             app:destination="@id/awaitingProductsFragment" />
-        <action
-            android:id="@+id/action_profileSelectFragment_to_completedProductsFragment"
-            app:destination="@id/completedProductsFragment" />
     </fragment>
 </navigation>
