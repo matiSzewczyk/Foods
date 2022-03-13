@@ -7,13 +7,13 @@
     <fragment
         android:id="@+id/awaitingProductsFragment"
         android:name="com.example.foods.AwaitingProductsFragment"
-        android:label="AwaitingProductsFragment" />
+        android:label="Foods" />
     <fragment
         android:id="@+id/completedProductsFragment"
         android:name="com.example.foods.CompletedProductsFragment"
-        android:label="CompletedProductsFragment" />
+        android:label="Foods" />
     <fragment
         android:id="@+id/profileSelectFragment"
         android:name="com.example.foods.ProfileSelectFragment"
-        android:label="ProfileSelectFragment" />
+        android:label="Foods" />
 </navigation>
