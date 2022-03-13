@@ -7,11 +7,7 @@
     <fragment
         android:id="@+id/awaitingProductsFragment"
         android:name="com.example.foods.AwaitingProductsFragment"
-        android:label="AwaitingProductsFragment" >
-        <action
-            android:id="@+id/action_awaitingProductsFragment_to_completedProductsFragment"
-            app:destination="@id/completedProductsFragment" />
-    </fragment>
+        android:label="AwaitingProductsFragment" />
     <fragment
         android:id="@+id/completedProductsFragment"
         android:name="com.example.foods.CompletedProductsFragment"
@@ -19,9 +15,5 @@
     <fragment
         android:id="@+id/profileSelectFragment"
         android:name="com.example.foods.ProfileSelectFragment"
-        android:label="ProfileSelectFragment" >
-        <action
-            android:id="@+id/action_profileSelectFragment_to_awaitingProductsFragment"
-            app:destination="@id/awaitingProductsFragment" />
-    </fragment>
+        android:label="ProfileSelectFragment" />
 </navigation>

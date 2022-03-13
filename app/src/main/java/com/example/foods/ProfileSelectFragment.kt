@@ -38,8 +38,8 @@ class ProfileSelectFragment : Fragment(R.layout.fragment_profile_select) {
     }
 
     private fun moveToAwaitingFragment() {
-        val action =
-            ProfileSelectFragmentDirections.actionProfileSelectFragmentToAwaitingProductsFragment()
-        findNavController().navigate(action)
+//        val action =
+//            ProfileSelectFragmentDirections.actionProfileSelectFragmentToAwaitingProductsFragment()
+//        findNavController().navigate(action)
     }
 }
