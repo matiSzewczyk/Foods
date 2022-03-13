@@ -1,5 +1,6 @@
 package com.example.foods
 
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -42,26 +43,41 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 setupRecyclerView()
                 listener = RealmChangeListener {
 
-                    if (awaitingProductsViewModel.isNewEntry()) {
-                        awaitingProductsViewModel.itemCount =
-                            awaitingProductsAdapter.products.size
-                        if (!awaitingProductsViewModel.isSameUser((requireActivity().application as FoodsApp).foodsApp.currentUser().toString())) {
-                            val notification =
-                                NotificationCompat.Builder(requireContext(), NotificationHandler.channel_id)
-                                    .setContentTitle(awaitingProductsViewModel.notifyObjectName())
-                                    .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
-                                    .setSmallIcon(R.drawable.foods_icon)
-                                    .setLargeIcon(BitmapFactory.decodeResource(requireContext().resources, R.mipmap.logo_round))
-                                    .setColor(resources.getColor(R.color.green_900))
-                                    .setPriority(NotificationCompat.PRIORITY_MAX).build()
+                    if (requireContext().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null) == "sypiacy") {
+                        if (awaitingProductsViewModel.isNewEntry()) {
+                            awaitingProductsViewModel.itemCount =
+                                awaitingProductsAdapter.products.size
+                            if (!awaitingProductsViewModel.isSameUser(
+                                    (requireActivity().application as FoodsApp).foodsApp.currentUser()
+                                        .toString()
+                                )
+                            ) {
+                                val notification =
+                                    NotificationCompat.Builder(
+                                        requireContext(),
+                                        NotificationHandler.channel_id
+                                    )
+                                        .setContentTitle(awaitingProductsViewModel.notifyObjectName())
+                                        .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
+                                        .setSmallIcon(R.drawable.foods_icon)
+                                        .setLargeIcon(
+                                            BitmapFactory.decodeResource(
+                                                requireContext().resources,
+                                                R.mipmap.logo_round
+                                            )
+                                        )
+                                        .setColor(resources.getColor(R.color.green_900))
+                                        .setPriority(NotificationCompat.PRIORITY_MAX).build()
 
-                            val notificationManager =
-                                NotificationManagerCompat.from(requireContext())
+                                val notificationManager =
+                                    NotificationManagerCompat.from(requireContext())
 
-                            notificationManager.notify(0, notification)
+                                notificationManager.notify(0, notification)
+                            }
+                        } else {
+                            awaitingProductsViewModel.itemCount =
+                                awaitingProductsViewModel.productList!!.size
                         }
-                    } else {
-                        awaitingProductsViewModel.itemCount = awaitingProductsViewModel.productList!!.size
                     }
                     awaitingProductsAdapter.notifyDataSetChanged()
                 }
