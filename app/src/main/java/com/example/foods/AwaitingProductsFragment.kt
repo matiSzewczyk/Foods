@@ -47,10 +47,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                         if (awaitingProductsViewModel.isNewEntry()) {
                             awaitingProductsViewModel.itemCount =
                                 awaitingProductsAdapter.products.size
-                            if (!awaitingProductsViewModel.isSameUser(
-                                    (requireActivity().application as FoodsApp).foodsApp.currentUser()
-                                        .toString()
-                                )
+                            if (!awaitingProductsViewModel.isSameUser()
                             ) {
                                 val notification =
                                     NotificationCompat.Builder(
