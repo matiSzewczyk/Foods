@@ -110,7 +110,7 @@ class AwaitingProductsViewModel : ViewModel() {
                 val test = CompletedProduct()
                 val currentDateTime = LocalDateTime.now()
                 test.name = completed.name
-                test.time = completed.time
+                test.time = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"))
                 test.timestamp = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")).toString()
                 test.grammage = completed.grammage
                 it.copyToRealmOrUpdate(test)
