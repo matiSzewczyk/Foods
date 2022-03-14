@@ -27,7 +27,7 @@ class CompletedProductsViewModel : ViewModel() {
 
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
-        partitionValue = "partition"
+        partitionValue = "partition1"
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
@@ -69,7 +69,7 @@ class CompletedProductsViewModel : ViewModel() {
         return productList!!.sort("time", Sort.DESCENDING)[0]!!.grammage
     }
 
-    fun isSameUser(userId: String): Boolean {
-        return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == userId
+    fun isSameUser(): Boolean {
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == user!!.id
     }
 }

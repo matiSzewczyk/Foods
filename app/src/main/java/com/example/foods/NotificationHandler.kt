@@ -8,13 +8,12 @@ import android.os.Build
 
 object NotificationHandler {
     var channel_id = "foodsId"
-    var channel_name = ""
 
-    fun createNotificationChannel(context: Context) {
+    fun createNotificationChannel(context: Context, channelName: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channel_id,
-                channel_name,
+                channelName,
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 lightColor = Color.GREEN

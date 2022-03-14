@@ -28,6 +28,9 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentCompletedProductsBinding.bind(view)
+        NotificationHandler.createNotificationChannel(requireContext(), "Nasypane")
+
+        val profile = requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null)
 
         lifecycleScope.launch(Dispatchers.IO) {
             completedProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
@@ -35,14 +38,11 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
                 completedProductsViewModel.createRealm((requireActivity().application as FoodsApp).foodsApp)
                 setupRecyclerView()
                 listener = RealmChangeListener {
-                    if (requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null) == "pakujacy") {
+                    if (profile == "pakujacy") {
                         if (completedProductsViewModel.isNewEntry()) {
                             completedProductsViewModel.itemCount =
                                 completedProductsAdapter.products.size
-                            if (!completedProductsViewModel.isSameUser(
-                                    (requireActivity().application as FoodsApp).foodsApp.currentUser()
-                                        .toString()
-                                )
+                            if (!completedProductsViewModel.isSameUser()
                             ) {
                                 val notification =
                                     NotificationCompat.Builder(
@@ -105,7 +105,7 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
     }
 
     override fun onDestroy() {
-        completedProductsAdapter.products.removeAllChangeListeners()
+//        completedProductsAdapter.products.removeAllChangeListeners()
         super.onDestroy()
     }
 }

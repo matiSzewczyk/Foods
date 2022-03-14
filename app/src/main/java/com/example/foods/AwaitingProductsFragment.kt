@@ -32,8 +32,8 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
 
         binding = FragmentAwaitingProductsBinding.bind(view)
 
-        NotificationHandler.channel_name= "Do sypania"
-        NotificationHandler.createNotificationChannel(requireContext())
+        NotificationHandler.createNotificationChannel(requireContext(), "Do Sypania")
+        val profile = requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null)
 
         lifecycleScope.launch(IO) {
             awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
@@ -43,7 +43,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                 setupRecyclerView()
                 listener = RealmChangeListener {
 
-                    if (requireContext().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null) == "sypiacy") {
+                    if (profile == "sypiacy") {
                         if (awaitingProductsViewModel.isNewEntry()) {
                             awaitingProductsViewModel.itemCount =
                                 awaitingProductsAdapter.products.size
