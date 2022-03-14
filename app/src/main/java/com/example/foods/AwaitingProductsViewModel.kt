@@ -139,6 +139,6 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     fun isSameUser(): Boolean {
-        return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == user!!.id
+        return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == user!!.toString()
     }
 }

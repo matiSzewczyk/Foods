@@ -105,7 +105,7 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
     }
 
     override fun onDestroy() {
-//        completedProductsAdapter.products.removeAllChangeListeners()
+        completedProductsAdapter.products.removeAllChangeListeners()
         super.onDestroy()
     }
 }
