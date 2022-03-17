@@ -62,7 +62,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <LinearLayout
-        android:id="@+id/check_box_layout"
+        android:id="@+id/check_box_layout_top"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,6 +93,40 @@
             android:layout_weight=".33"
             android:text="@string/_500g"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/check_box_layout_bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/check_box_layout_top">
+
+        <CheckBox
+            android:id="@+id/check_box_250"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_weight=".26"
+            android:text="@string/_250g"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/check_box_200"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:text="@string/_200g"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/check_box_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".33"
+            android:text="@string/_100g"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -107,7 +141,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_box_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/check_box_layout_bottom" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_confirm"
@@ -120,6 +154,6 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_box_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/check_box_layout_bottom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

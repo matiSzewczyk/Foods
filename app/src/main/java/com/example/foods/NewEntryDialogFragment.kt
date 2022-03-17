@@ -49,7 +49,7 @@ class NewEntryDialogFragment : DialogFragment(){
 
             buttonConfirm.setOnClickListener {
                 if (ConnectionChecker.isInternetAvailable(requireContext())) {
-                    if (isGrammageSelected(checkBox1, checkBox500, checkBox900)) {
+                    if (isGrammageSelected()) {
                         if(newEntryName.text.isNotEmpty()) {
                             awaitingProductsViewModel.createNewEntry(
                                 newEntryName.text.toString(),
@@ -84,8 +84,10 @@ class NewEntryDialogFragment : DialogFragment(){
             ""
     }
 
-    private fun isGrammageSelected(checkBox1: CheckBox, checkBox500: CheckBox, checkBox900: CheckBox): Boolean {
-        return checkBox1.isChecked || checkBox500.isChecked || checkBox900.isChecked
+    private fun isGrammageSelected(): Boolean {
+        binding.apply {
+            return checkBox1.isChecked || checkBox500.isChecked || checkBox900.isChecked || checkBox250.isChecked || checkBox200.isChecked || checkBox100.isChecked
+        }
     }
 
     private fun getGrammage(): String {
@@ -97,6 +99,13 @@ class NewEntryDialogFragment : DialogFragment(){
                 text += "\t\t500g"
             if (checkBox900.isChecked)
                 text += "\t\t900g"
+            if (checkBox200.isChecked)
+                text += "\t\t200g"
+            if (checkBox250.isChecked)
+                text += "\t\t250g"
+            if (checkBox100.isChecked)
+                text += "\t\t100g"
+
         }
         return text
     }
