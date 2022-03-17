@@ -44,27 +44,7 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
                                 completedProductsAdapter.products.size
                             if (!completedProductsViewModel.isSameUser()
                             ) {
-                                val notification =
-                                    NotificationCompat.Builder(
-                                        requireContext(),
-                                        NotificationHandler.channel_id
-                                    )
-                                        .setContentTitle(completedProductsViewModel.notifyObjectName())
-                                        .setContentText(completedProductsViewModel.notifyObjectGrammage())
-                                        .setSmallIcon(R.drawable.foods_icon)
-                                        .setLargeIcon(
-                                            BitmapFactory.decodeResource(
-                                                requireContext().resources,
-                                                R.mipmap.logo_round
-                                            )
-                                        )
-                                        .setColor(resources.getColor(R.color.green_900))
-                                        .setPriority(NotificationCompat.PRIORITY_MAX).build()
-
-                                val notificationManager =
-                                    NotificationManagerCompat.from(requireContext())
-
-                                notificationManager.notify(0, notification)
+                                sendNotification()
                             }
                         } else {
                             completedProductsViewModel.itemCount =
@@ -76,6 +56,30 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
                 completedProductsAdapter.products.addChangeListener(listener)
             }
         }
+    }
+
+    private fun sendNotification() {
+        val notification =
+            NotificationCompat.Builder(
+                requireContext(),
+                NotificationHandler.channel_id
+            )
+                .setContentTitle(completedProductsViewModel.notifyObjectName())
+                .setContentText(completedProductsViewModel.notifyObjectGrammage())
+                .setSmallIcon(R.drawable.foods_icon)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        requireContext().resources,
+                        R.mipmap.logo_round
+                    )
+                )
+                .setColor(resources.getColor(R.color.green_900))
+                .setPriority(NotificationCompat.PRIORITY_MAX).build()
+
+        val notificationManager =
+            NotificationManagerCompat.from(requireContext())
+
+        notificationManager.notify(0, notification)
     }
 
     private fun setupRecyclerView() = binding.completedProductsRecyclerView.apply {

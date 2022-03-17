@@ -49,27 +49,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                                 awaitingProductsAdapter.products.size
                             if (!awaitingProductsViewModel.isSameUser()
                             ) {
-                                val notification =
-                                    NotificationCompat.Builder(
-                                        requireContext(),
-                                        NotificationHandler.channel_id
-                                    )
-                                        .setContentTitle(awaitingProductsViewModel.notifyObjectName())
-                                        .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
-                                        .setSmallIcon(R.drawable.foods_icon)
-                                        .setLargeIcon(
-                                            BitmapFactory.decodeResource(
-                                                requireContext().resources,
-                                                R.mipmap.logo_round
-                                            )
-                                        )
-                                        .setColor(resources.getColor(R.color.green_900))
-                                        .setPriority(NotificationCompat.PRIORITY_MAX).build()
-
-                                val notificationManager =
-                                    NotificationManagerCompat.from(requireContext())
-
-                                notificationManager.notify(0, notification)
+                                sendNotification()
                             }
                         } else {
                             awaitingProductsViewModel.itemCount =
@@ -90,6 +70,30 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
             }
         }
 
+    }
+
+    private fun sendNotification() {
+        val notification =
+            NotificationCompat.Builder(
+                requireContext(),
+                NotificationHandler.channel_id
+            )
+                .setContentTitle(awaitingProductsViewModel.notifyObjectName())
+                .setContentText(awaitingProductsViewModel.notifyObjectGrammage())
+                .setSmallIcon(R.drawable.foods_icon)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        requireContext().resources,
+                        R.mipmap.logo_round
+                    )
+                )
+                .setColor(resources.getColor(R.color.green_900))
+                .setPriority(NotificationCompat.PRIORITY_MAX).build()
+
+        val notificationManager =
+            NotificationManagerCompat.from(requireContext())
+
+        notificationManager.notify(0, notification)
     }
 
     private fun setupRecyclerView() = binding.awaitingProductsRecyclerView.apply {
