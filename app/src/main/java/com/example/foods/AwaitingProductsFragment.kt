@@ -110,11 +110,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products),
     override fun layoutClickListener(position: Int, view: View?) {
         val hiddenLayout = view?.findViewById<ConstraintLayout>(R.id.hidden_layout)
         if (hiddenLayout != null) {
-            if (hiddenLayout.visibility == View.GONE) {
-                hiddenLayout.visibility = View.VISIBLE
-            } else {
-                hiddenLayout.visibility = View.GONE
-            }
+            hiddenLayout.visibility = if (hiddenLayout.visibility == View.GONE) View.VISIBLE else View.GONE
         }
     }
 
