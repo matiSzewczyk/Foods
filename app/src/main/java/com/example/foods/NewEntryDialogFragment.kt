@@ -77,11 +77,8 @@ class NewEntryDialogFragment : DialogFragment(){
         }
     }
 
-    private fun isUrgent(urgentSwitch: SwitchMaterial): String {
-        return if (urgentSwitch.isChecked)
-            "pilne"
-        else
-            ""
+    private fun isUrgent(urgentSwitch: SwitchMaterial): Boolean {
+        return urgentSwitch.isChecked
     }
 
     private fun isGrammageSelected(): Boolean {

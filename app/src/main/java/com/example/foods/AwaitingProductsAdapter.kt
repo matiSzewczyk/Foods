@@ -13,7 +13,6 @@ class AwaitingProductsAdapter(
     private val customInterface: RecyclerViewInterface
 ) : RecyclerView.Adapter<AwaitingProductsAdapter.AwaitingProductsHolder>() {
 
-
     inner class AwaitingProductsHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName: TextView           = itemView.findViewById(R.id.product_name)
         val productUrgency: TextView        = itemView.findViewById(R.id.product_urgency)
@@ -51,7 +50,7 @@ class AwaitingProductsAdapter(
     override fun onBindViewHolder(holder: AwaitingProductsHolder, position: Int) {
         holder.apply {
             productName.text = products[position]?.name
-            productUrgency.text = products[position]?.urgent
+            productUrgency.visibility = if (products[position]?.isUrgent == true) View.VISIBLE else View.GONE
             productGrammage.text = products[position]?.grammage
             productTimestamp.text = products[position]?.timestamp
         }

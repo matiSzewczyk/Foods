@@ -17,10 +17,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products), RecyclerViewInterface{
+class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products),
+    RecyclerViewInterface {
 
     private lateinit var binding: FragmentCompletedProductsBinding
-    private val completedProductsViewModel : CompletedProductsViewModel by activityViewModels()
+    private val completedProductsViewModel: CompletedProductsViewModel by activityViewModels()
     private lateinit var completedProductsAdapter: CompletedProductsAdapter
     private lateinit var listener: RealmChangeListener<RealmResults<CompletedProduct>>
 
@@ -30,7 +31,8 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
         binding = FragmentCompletedProductsBinding.bind(view)
         NotificationHandler.createNotificationChannel(requireContext(), "Nasypane")
 
-        val profile = requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null)
+        val profile = requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE)
+            .getString("profileType", null)
 
         lifecycleScope.launch(Dispatchers.IO) {
             completedProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
@@ -42,8 +44,7 @@ class CompletedProductsFragment : Fragment(R.layout.fragment_completed_products)
                         if (completedProductsViewModel.isNewEntry()) {
                             completedProductsViewModel.itemCount =
                                 completedProductsAdapter.products.size
-                            if (!completedProductsViewModel.isSameUser()
-                            ) {
+                            if (!completedProductsViewModel.isSameUser()) {
                                 sendNotification()
                             }
                         } else {

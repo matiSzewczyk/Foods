@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -20,10 +21,11 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), RecyclerViewInterface {
+class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products),
+    RecyclerViewInterface {
 
-    private lateinit var binding : FragmentAwaitingProductsBinding
-    private val awaitingProductsViewModel : AwaitingProductsViewModel by activityViewModels()
+    private lateinit var binding: FragmentAwaitingProductsBinding
+    private val awaitingProductsViewModel: AwaitingProductsViewModel by activityViewModels()
     private lateinit var awaitingProductsAdapter: AwaitingProductsAdapter
     private lateinit var listener: RealmChangeListener<RealmResults<AwaitingProduct>>
 
@@ -33,7 +35,8 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
         binding = FragmentAwaitingProductsBinding.bind(view)
 
         NotificationHandler.createNotificationChannel(requireContext(), "Do Sypania")
-        val profile = requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE).getString("profileType", null)
+        val profile = requireActivity().getSharedPreferences("profilePref", Context.MODE_PRIVATE)
+            .getString("profileType", null)
 
         lifecycleScope.launch(IO) {
             awaitingProductsViewModel.loginAnon((requireActivity().application as FoodsApp).foodsApp)
@@ -47,8 +50,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
                         if (awaitingProductsViewModel.isNewEntry()) {
                             awaitingProductsViewModel.itemCount =
                                 awaitingProductsAdapter.products.size
-                            if (!awaitingProductsViewModel.isSameUser()
-                            ) {
+                            if (!awaitingProductsViewModel.isSameUser()) {
                                 sendNotification()
                             }
                         } else {
@@ -127,6 +129,12 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products), 
     }
 
     override fun toggleUrgencyClickListener(position: Int, view: View?) {
+        val urgencyTV = view?.findViewById<TextView>(R.id.product_urgency)
+        if (awaitingProductsAdapter.products[position]!!.isUrgent) {
+            urgencyTV!!.visibility = View.GONE
+        } else {
+            urgencyTV!!.visibility = View.VISIBLE
+        }
         awaitingProductsViewModel.toggleUrgency(
             awaitingProductsAdapter.products[position]!!.id
         )

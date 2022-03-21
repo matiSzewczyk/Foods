@@ -50,7 +50,7 @@ class AwaitingProductsViewModel : ViewModel() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun createNewEntry(name: String, grammage: String, urgency: String, currentUser: User?) {
+    fun createNewEntry(name: String, grammage: String, isUrgent: Boolean, currentUser: User?) {
         val currentDateTime = LocalDateTime.now()
         val product = AwaitingProduct()
 
@@ -58,7 +58,7 @@ class AwaitingProductsViewModel : ViewModel() {
         product.time = currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"))
         product.timestamp = currentDateTime.format(DateTimeFormatter.ofPattern("HH:mm")).toString()
         product.grammage = grammage
-        product.urgent = urgency
+        product.isUrgent = isUrgent
         product.userId = currentUser.toString()
         addToRealm(product)
     }
@@ -87,13 +87,7 @@ class AwaitingProductsViewModel : ViewModel() {
                 .equalTo("id", id)
                 .findFirst()
             if (update != null) {
-                if (update.isUrgent) {
-                    update.isUrgent = false
-                    update.urgent = ""
-                } else {
-                    update.isUrgent = true
-                    update.urgent = "pilne"
-                }
+                update.isUrgent = !update.isUrgent
                 it.copyToRealmOrUpdate(update)
             }
         }

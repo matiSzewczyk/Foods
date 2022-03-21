@@ -15,8 +15,6 @@ open class AwaitingProduct : RealmObject() {
 
     var isUrgent: Boolean = false
 
-    var urgent = "pilne"
-
     var grammage: String = ""
 
     var time: String = ""
