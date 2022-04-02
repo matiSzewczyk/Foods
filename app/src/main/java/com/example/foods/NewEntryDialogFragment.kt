@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
@@ -50,14 +49,19 @@ class NewEntryDialogFragment : DialogFragment(){
             buttonConfirm.setOnClickListener {
                 if (ConnectionChecker.isInternetAvailable(requireContext())) {
                     if (isGrammageSelected()) {
-                        if(newEntryName.text.isNotEmpty()) {
-                            awaitingProductsViewModel.createNewEntry(
-                                newEntryName.text.toString(),
-                                getGrammage(),
-                                isUrgent(urgentSwitch),
-                                (requireActivity().application as FoodsApp).foodsApp.currentUser()
-                            )
-                            dialog!!.dismiss()
+                        if (newEntryName.text.isNotEmpty()) {
+                            if (!awaitingProductsViewModel.alreadyExists(newEntryName.text.toString())) {
+                                awaitingProductsViewModel.createNewEntry(
+                                    newEntryName.text.toString(),
+                                    getGrammage(),
+                                    isUrgent(urgentSwitch),
+                                    (requireActivity().application as FoodsApp).foodsApp.currentUser()
+                                )
+                                dialog!!.dismiss()
+                            } else {
+                                Toast.makeText(context, "Produkt już na liście.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         } else {
                             Toast.makeText(context, "Wprowadź nazwę produktu.", Toast.LENGTH_SHORT)
                                 .show()

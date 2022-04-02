@@ -1,6 +1,7 @@
 package com.example.foods
 
 import android.os.Build
+import android.widget.AutoCompleteTextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.realm.Realm
@@ -134,5 +135,9 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun isSameUser(): Boolean {
         return productList!!.sort("time", Sort.DESCENDING)[0]!!.userId == user!!.toString()
+    }
+
+    fun alreadyExists(name: String): Boolean {
+        return productList!!.where().equalTo("name", name).findFirst() != null
     }
 }
