@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
@@ -131,6 +132,7 @@ class AwaitingProductsFragment : Fragment(R.layout.fragment_awaiting_products),
         } else {
             urgencyTV!!.visibility = View.VISIBLE
         }
+        view.findViewById<ConstraintLayout>(R.id.hidden_layout).visibility = View.GONE
         awaitingProductsViewModel.toggleUrgency(
             awaitingProductsAdapter.products[position]!!.id
         )
