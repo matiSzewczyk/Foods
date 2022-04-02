@@ -1,7 +1,6 @@
 package com.example.foods
 
 import android.os.Build
-import android.widget.AutoCompleteTextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.realm.Realm

@@ -95,18 +95,17 @@ class NewEntryDialogFragment : DialogFragment(){
         var text = ""
         binding.apply {
             if (checkBox1.isChecked)
-                text += "1kg"
-            if (checkBox500.isChecked)
-                text += "\t\t500g"
+                text += "1kg\t\t"
             if (checkBox900.isChecked)
-                text += "\t\t900g"
-            if (checkBox200.isChecked)
-                text += "\t\t200g"
+                text += "900g\t\t"
+            if (checkBox500.isChecked)
+                text += "500g\t\t"
             if (checkBox250.isChecked)
-                text += "\t\t250g"
+                text += "250g\t\t"
+            if (checkBox200.isChecked)
+                text += "200g\t\t"
             if (checkBox100.isChecked)
-                text += "\t\t100g"
-
+                text += "100g\t\t"
         }
         return text
     }
