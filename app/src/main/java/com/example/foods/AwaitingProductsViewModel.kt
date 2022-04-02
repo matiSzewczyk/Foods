@@ -32,7 +32,7 @@ class AwaitingProductsViewModel : ViewModel() {
 
     fun createRealm(foodsApp: App) {
         user = foodsApp.currentUser()
-        partitionValue = "partition1"
+        partitionValue = "partition"
         val config = SyncConfiguration.Builder(user!!, partitionValue)
             .allowQueriesOnUiThread(true)
             .allowWritesOnUiThread(true)
